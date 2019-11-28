@@ -135,12 +135,9 @@ public class DashboardFragment extends Fragment {
         hour=calendar.get(Calendar.HOUR);
         minute=calendar.get(Calendar.MINUTE);
 
-
         //fromDate
-
         String nFromDate=year+"/"+indexMonth+"/"+fromDay;
         fromTV.setText(nFromDate);
-
 
         final DatePickerDialog.OnDateSetListener fromDateListener=new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -156,7 +153,6 @@ public class DashboardFragment extends Fragment {
                         e.printStackTrace();
                     }
                 }
-
             }
         };
 
@@ -166,16 +162,11 @@ public class DashboardFragment extends Fragment {
                 //set Date as begining of the month
                 DatePickerDialog datePickerDialog=new DatePickerDialog(getContext(),fromDateListener,year,month,fromDay);
                 datePickerDialog.show();
-
-
-
             }
         });
 
 
-
         //toDate
-
         String nToDate=year+"/"+indexMonth+"/"+toDay;
         toTV.setText(nToDate);
 
@@ -193,7 +184,6 @@ public class DashboardFragment extends Fragment {
                         e.printStackTrace();
                     }
                 }
-
             }
         };
 
@@ -201,18 +191,11 @@ public class DashboardFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 //set Date as begining of the month
-
                 DatePickerDialog datePickerDialog=new DatePickerDialog(getContext(),toDateListener,year,month,toDay);
                 datePickerDialog.show();
 
-
-
             }
         });
-
-
-
-
 
         /*
         Cursor cursor=helper.showTotalExpense(fdate,tdate,type);
