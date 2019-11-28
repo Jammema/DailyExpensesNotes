@@ -21,8 +21,8 @@ private DatabaseHelper helper;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_document);
         this.setTitle("Document");
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        /*getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);*/
 
 
         titleFoundMessage=findViewById(R.id.documentFoundTitleTV);

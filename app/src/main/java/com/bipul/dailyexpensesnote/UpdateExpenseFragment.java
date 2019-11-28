@@ -45,33 +45,32 @@ import java.util.regex.Pattern;
  */
 public class UpdateExpenseFragment extends Fragment {
     private Spinner typeSpinner;
-    private EditText amountET,dateET,timeET;
-    private Button updateExpenseBtn,updatedocumentBtn,cancelUpdateBtn;
-    private ImageView datePickBtn,timePickBtn;
+    private EditText amountET, dateET, timeET;
+    private Button updateExpenseBtn, updatedocumentBtn;
+    private ImageView datePickBtn, timePickBtn, cancelUpdateBtn;
     private ImageView filesetIV;
-    private LinearLayout updateCameraGalleryBtnfield,cameraBtn,galleryBtn,cencleBtn;
+    private LinearLayout updateCameraGalleryBtnfield, cameraBtn, galleryBtn, cencleBtn;
     private DatabaseHelper helper;
-    private SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy/MM/dd");
-    private SimpleDateFormat timeFormat=new SimpleDateFormat("hh:mm aa");
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+    private SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm aa");
     private String typeOfExpense;
     private Context context;
 
 
-
-    private Bitmap bitmap=null;
-    private String documentURL="";
+    private Bitmap bitmap = null;
+    private String documentURL = "";
 
     private Calendar calendar;
-    private int hour,minute;
+    private int hour, minute;
 
-    private int selectposition=0;
+    private int selectposition = 0;
 
 
     //get Bundle
-    String rId="";
-    String rDate="";
-    String rTime="";
-    String rAmount="";
+    String rId = "";
+    String rDate = "";
+    String rTime = "";
+    String rAmount = "";
 
     public UpdateExpenseFragment() {
         // Required empty public constructor
@@ -83,7 +82,7 @@ public class UpdateExpenseFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_update_expense, container, false);
-        context=container.getContext();
+        context = container.getContext();
 
 
         calendar = Calendar.getInstance();
@@ -94,25 +93,25 @@ public class UpdateExpenseFragment extends Fragment {
         init(view);
         process(view);
 
-        return  view;
+        return view;
     }
 
     private void init(View view) {
-        typeSpinner=view.findViewById(R.id.updateActivityTypeSpinnerID);
-        amountET=view.findViewById(R.id.updateExpenseAmountET);
-        dateET=view.findViewById(R.id.updateExpenseDateET);
-        timeET=view.findViewById(R.id.updateExpenseTimeET);
-        updateExpenseBtn =view.findViewById(R.id.updateExpenseBtn);
-        datePickBtn=view.findViewById(R.id.updateActivityDatePickerBtn);
-        timePickBtn=view.findViewById(R.id.updateActiviTimePickerBtn);
-        helper=new DatabaseHelper(context);
-        filesetIV=view.findViewById(R.id.updateFileIV);
-        updateCameraGalleryBtnfield=view.findViewById(R.id.updateCameraGalleryBtnfield);
-        cameraBtn=view.findViewById(R.id.updateCameraBtnID);
-        galleryBtn=view.findViewById(R.id.updateGalleryBtnID);
-        cencleBtn=view.findViewById(R.id.updateImageCencleBtnnID);
-        updatedocumentBtn=view.findViewById(R.id.updateDocumentMethod);
-        cancelUpdateBtn=view.findViewById(R.id.updateCancelBtn);
+        typeSpinner = view.findViewById(R.id.updateActivityTypeSpinnerID);
+        amountET = view.findViewById(R.id.updateExpenseAmountET);
+        dateET = view.findViewById(R.id.updateExpenseDateET);
+        timeET = view.findViewById(R.id.updateExpenseTimeET);
+        updateExpenseBtn = view.findViewById(R.id.updateExpenseBtn);
+        datePickBtn = view.findViewById(R.id.updateActivityDatePickerBtn);
+        timePickBtn = view.findViewById(R.id.updateActiviTimePickerBtn);
+        helper = new DatabaseHelper(context);
+        filesetIV = view.findViewById(R.id.updateFileIV);
+        updateCameraGalleryBtnfield = view.findViewById(R.id.updateCameraGalleryBtnfield);
+        cameraBtn = view.findViewById(R.id.updateCameraBtnID);
+        galleryBtn = view.findViewById(R.id.updateGalleryBtnID);
+        cencleBtn = view.findViewById(R.id.updateImageCencleBtnnID);
+        updatedocumentBtn = view.findViewById(R.id.updateDocumentMethod);
+        cancelUpdateBtn = view.findViewById(R.id.updateCancelBtn);
     }
 
     private void process(View view) {
@@ -121,13 +120,13 @@ public class UpdateExpenseFragment extends Fragment {
 
 
 //get value from bundle argument
-        Bundle bundle=getArguments();
-        if(bundle!=null){
-            rId=bundle.getString("id");
-           rDate=bundle.getString("date");
-            rAmount=bundle.getString("amount");
-            rTime=bundle.getString("time");
-            typeOfExpense=bundle.getString("type");
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            rId = bundle.getString("id");
+            rDate = bundle.getString("date");
+            rAmount = bundle.getString("amount");
+            rTime = bundle.getString("time");
+            typeOfExpense = bundle.getString("type");
 
         }
 
@@ -139,26 +138,25 @@ public class UpdateExpenseFragment extends Fragment {
 
         //custom set
         //set Type into spinner
-        final String []typeExpense={"Rent","Food","Utility bills","Medicine","Cloathing","Transport","Health","Gift"};
-        ArrayAdapter arrayAdapter=new ArrayAdapter(context,android.R.layout.simple_list_item_activated_1,typeExpense);
+        final String[] typeExpense = {"Rent", "Food", "Utility bills", "Medicine", "Cloathing", "Transport", "Health", "Gift"};
+        ArrayAdapter arrayAdapter = new ArrayAdapter(context, android.R.layout.simple_list_item_activated_1, typeExpense);
         typeSpinner.setAdapter(arrayAdapter);
 
 
         //find position thats selected by user
-        for (int i=0;i<typeExpense.length;i++){
-            if(typeOfExpense.equals(typeExpense[i])){
-                selectposition=i;
+        for (int i = 0; i < typeExpense.length; i++) {
+            if (typeOfExpense.equals(typeExpense[i])) {
+                selectposition = i;
             }
         }
 
         typeSpinner.setSelection(selectposition);                  //set spinner position thats request for update
 
 
-
         typeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                typeOfExpense=typeExpense[position];
+                typeOfExpense = typeExpense[position];
                 //Toast.makeText(getApplicationContext(),typeOfExpense+" is selected",Toast.LENGTH_SHORT).show();
             }
 
@@ -166,7 +164,7 @@ public class UpdateExpenseFragment extends Fragment {
             public void onNothingSelected(AdapterView<?> parent) {
 
             }
-        } );
+        });
 
 
         //get date and time into dateET and Time ET
@@ -174,140 +172,115 @@ public class UpdateExpenseFragment extends Fragment {
         datePickBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder builder=new AlertDialog.Builder(v.getContext());
-                View view=getLayoutInflater().inflate(R.layout.custom_date_picker,null);
+                AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+                View view = getLayoutInflater().inflate(R.layout.custom_date_picker, null);
 
-                Button done=view.findViewById(R.id.doneButton);
-                final DatePicker datePicker=view.findViewById(R.id.datePickerDialogue);
+                Button done = view.findViewById(R.id.doneButton);
+                final DatePicker datePicker = view.findViewById(R.id.datePickerDialogue);
                 builder.setView(view);
-                final Dialog dialog=builder.create();
+                final Dialog dialog = builder.create();
                 dialog.show();
                 done.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        int day=datePicker.getDayOfMonth();
-                        int month=datePicker.getMonth();
-                        month=month+1;
-                        int year=datePicker.getYear();
+                        int day = datePicker.getDayOfMonth();
+                        int month = datePicker.getMonth();
+                        month = month + 1;
+                        int year = datePicker.getYear();
 
-                        String cDate=year+"/"+month+"/"+day;
-                        Date d=null;
+                        String cDate = year + "/" + month + "/" + day;
+                        Date d = null;
                         try {
-                            d=dateFormat.parse(cDate);
+                            d = dateFormat.parse(cDate);
                         } catch (ParseException e) {
                             e.printStackTrace();
                         }
 
-                        String fdate=dateFormat.format(d);
+                        String fdate = dateFormat.format(d);
                         dateET.setText(fdate);
                         dialog.dismiss();
 
                     }
                 });
 
-
-
-
-
-
-
-
             }
         });
 
 
-
         //time picker listner
-        final TimePickerDialog.OnTimeSetListener timePick=new TimePickerDialog.OnTimeSetListener() {
+        final TimePickerDialog.OnTimeSetListener timePick = new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hour, int minute) {
-                Time time=new Time(hour,minute,0);
+                Time time = new Time(hour, minute, 0);
                 calendar.setTime(time);
-                String usertime=timeFormat.format(calendar.getTime());
+                String usertime = timeFormat.format(calendar.getTime());
                 timeET.setText(usertime);
-
             }
         };
 
 
         //time set
-
         timePickBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                TimePickerDialog timePickerDialog=new TimePickerDialog(context,timePick,hour,minute,false);
+                TimePickerDialog timePickerDialog = new TimePickerDialog(context, timePick, hour, minute, false);
                 timePickerDialog.show();
-
-
-
-
-
-
-
             }
         });
-
-
 
         //call for update on database
 //update data button
         updateExpenseBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String uTime=timeET.getText().toString();
-                String amountGet=amountET.getText().toString();
-                String userDate=dateET.getText().toString();
-                DateValidate dv=new DateValidate();
+                String uTime = timeET.getText().toString();
+                String amountGet = amountET.getText().toString();
+                String userDate = dateET.getText().toString();
+                DateValidate dv = new DateValidate();
                 dv.matcher = Pattern.compile(dv.DATE_PATTERN).matcher(userDate);           //check valid Date from ValidDate class
-                if(amountGet.equals("")||userDate.equals("")){
-                    if(amountGet.equals("")){
+                if (amountGet.equals("") || userDate.equals("")) {
+                    if (amountGet.equals("")) {
                         amountET.setError("please enter  amount first");
                         amountET.requestFocus();
-                    }
-                    else if(userDate.equals("")){
+                    } else if (userDate.equals("")) {
                         dateET.setError("please enter date first");
                         dateET.requestFocus();
                     }
                 }
 
                 //need check also valid date pattern
-                else if(!dv.matcher.matches()){
+                else if (!dv.matcher.matches()) {
                     dateET.setError("Enter a valid Date format : yyyy/MM/dd");
                     dateET.requestFocus();
-                    Toast.makeText(context,"please select date from calender button",Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, "please select date from calender button", Toast.LENGTH_LONG).show();
                 }
-
 
 
                 //if no problem/error exist data can be put into database
 
                 else {
-                    Date d= null;
+                    Date d = null;
                     try {
                         d = dateFormat.parse(userDate);
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
-                    long mdate=d.getTime();
+                    long mdate = d.getTime();
 
-                    int uAmount= Integer.parseInt(amountGet);
-                    helper.update(rId,typeOfExpense,uAmount,mdate,uTime);
-                    Toast.makeText(context,"Updated Successfully",Toast.LENGTH_SHORT).show();
+                    int uAmount = Integer.parseInt(amountGet);
+                    helper.update(rId, typeOfExpense, uAmount, mdate, uTime);
+                    Toast.makeText(context, "Updated Successfully", Toast.LENGTH_SHORT).show();
 
                     //finish();   //need to add fragment for real time data change view
 
                     //back to fragment when updated expense complete
-                    ExpenseFragment expenseFragment=new ExpenseFragment();
-                    FragmentManager manager=getActivity().getSupportFragmentManager();
+                    ExpenseFragment expenseFragment = new ExpenseFragment();
+                    FragmentManager manager = getActivity().getSupportFragmentManager();
                     FragmentTransaction ft = manager.beginTransaction();
-                    ft.replace(R.id.frameLayoutID,expenseFragment);
+                    ft.replace(R.id.frameLayoutID, expenseFragment);
                     ft.addToBackStack(null);
                     ft.commit();
-
-
-
-
                 }
 
 
@@ -319,15 +292,14 @@ public class UpdateExpenseFragment extends Fragment {
         cancelUpdateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ExpenseFragment expenseFragment=new ExpenseFragment();
-                FragmentManager manager=getActivity().getSupportFragmentManager();
+                ExpenseFragment expenseFragment = new ExpenseFragment();
+                FragmentManager manager = getActivity().getSupportFragmentManager();
                 FragmentTransaction ft = manager.beginTransaction();
-                ft.replace(R.id.frameLayoutID,expenseFragment);
+                ft.replace(R.id.frameLayoutID, expenseFragment);
                 ft.addToBackStack(null);
                 ft.commit();
             }
         });
-
 
 
         //camera gallery activity
@@ -345,16 +317,16 @@ public class UpdateExpenseFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(intent,0);
+                startActivityForResult(intent, 0);
             }
         });
 
         galleryBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent= new Intent(Intent.ACTION_PICK,MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 intent.setType("image/*");
-                startActivityForResult(intent,1);
+                startActivityForResult(intent, 1);
             }
         });
 
@@ -366,8 +338,6 @@ public class UpdateExpenseFragment extends Fragment {
         });
 
 
-
-
     }
 
 
@@ -375,9 +345,9 @@ public class UpdateExpenseFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (resultCode == Activity.RESULT_OK){
+        if (resultCode == Activity.RESULT_OK) {
 
-            if(requestCode == 0){
+            if (requestCode == 0) {
                 Bundle bundle = data.getExtras();
                 bitmap = (Bitmap) bundle.get("data");
                 filesetIV.setImageBitmap(bitmap);
@@ -385,13 +355,12 @@ public class UpdateExpenseFragment extends Fragment {
                 updateCameraGalleryBtnfield.setVisibility(View.GONE);
 
 
-            }
-            else if(requestCode == 1){
+            } else if (requestCode == 1) {
 
                 Uri uri = data.getData();
-                bitmap=null;
+                bitmap = null;
                 try {
-                    bitmap=MediaStore.Images.Media.getBitmap(context.getContentResolver(),uri);
+                    bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), uri);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -407,17 +376,15 @@ public class UpdateExpenseFragment extends Fragment {
     }
 
 
-
-    public void changeDocumentData(){
+    public void changeDocumentData() {
         String uDocument = null;
-        if(bitmap!=null){
-            uDocument=encodeToBase64(bitmap,Bitmap.CompressFormat.JPEG,100);
+        if (bitmap != null) {
+            uDocument = encodeToBase64(bitmap, Bitmap.CompressFormat.JPEG, 100);
         }
 
-        if(!uDocument.equals("")){
-            helper.updateDocument(rId,uDocument);          //update document data into database
+        if (!uDocument.equals("")) {
+            helper.updateDocument(rId, uDocument);          //update document data into database
         }
-
 
 
     }

@@ -4,19 +4,16 @@
 
 
     <item
-        android:iconTint="@android:color/black"
         android:id="@+id/navigation_dashboard"
         android:icon="@drawable/dashboard_icon_512"
         android:title="Dashboard" />
 
     <item
-        android:iconTint="@android:color/black"
         android:id="@+id/navigation_Expenses"
         android:icon="@drawable/expenses_icon_512"
         android:title="@string/title_expensess" />
 
     <item
-        android:iconTint="@android:color/black"
         android:id="@+id/navigation_Income"
         android:icon="@drawable/imcome_icon_512"
         android:title="Income" />

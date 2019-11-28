@@ -5,11 +5,44 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="10dp"
-    android:background="#37474F"
     tools:context=".ExpenseFragment">
 
-    <android.support.v7.widget.CardView
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_marginBottom="5dp"
+        android:background="@color/colorPrimary"
+        android:elevation="3dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="50dp"
+                    android:text="Expenses"
+                    android:textColor="@android:color/white"
+                    android:textSize="22sp" />
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.Toolbar>
+
+   <!-- <android.support.v7.widget.CardView
         app:cardCornerRadius="5dp"
         app:cardUseCompatPadding="true"
         app:cardElevation="3dp"
@@ -42,8 +75,54 @@
 
         </LinearLayout>
     </android.support.v7.widget.CardView>
+-->
 
-    <LinearLayout
+    <TextView
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:text="Select Expense Type"
+        android:textAlignment="center"
+        android:textColor="#000"
+        android:textSize="14sp" />
+
+    <android.support.v7.widget.CardView
+        android:layout_marginTop="6dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="3dp"
+        app:cardUseCompatPadding="true">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Expense Type  ---->"
+            android:layout_marginLeft="30dp"
+            android:textAlignment="center"
+            android:gravity="center_vertical"
+            android:textColor="#584F4F"
+            android:textSize="14sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="right"
+            android:orientation="horizontal">
+
+            <Spinner
+                android:id="@+id/showActivityTypeSpinnerID"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:spinnerMode="dropdown" />
+        </LinearLayout>
+
+
+    </android.support.v7.widget.CardView>
+
+    <!--<LinearLayout
         android:padding="5dp"
         android:gravity="center_horizontal|center_vertical"
         android:orientation="horizontal"
@@ -83,22 +162,140 @@
             android:padding="5dp"
             android:textColor="#fff"
             />
+
         <ImageView
             android:id="@+id/toDateCalenderBtn"
-            android:clickable="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:clickable="true"
             app:srcCompat="@drawable/ic_date"
 
             />
+    </LinearLayout>-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight=".5"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="From Date"
+                android:textAllCaps="false"
+                android:textColor="#000"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight=".5"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="To Date"
+                android:textAllCaps="false"
+                android:textColor="#000"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:gravity="center_horizontal|center_vertical"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/fromDataLL"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal|center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/viewFromDateTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="yyyy-mm-dd"
+                    android:textColor="#584F4F"
+                    android:textSize="14sp" />
+
+                <ImageView
+                    android:id="@+id/fromDateCalenderBtn"                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="50dp"
+                    android:clickable="true"
+                    app:srcCompat="@drawable/ic_date" />
+
+            </LinearLayout>
+
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="40dp"
+                android:background="#808080" />
+
+
+            <LinearLayout
+                android:id="@+id/toDataLL"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal|center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/viewToDateTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="yyyy-mm-dd"
+                    android:textColor="#584F4F"
+                    android:textSize="14sp" />
+
+                <ImageView
+                    android:id="@+id/toDateCalenderBtn"                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:clickable="true"
+                    app:srcCompat="@drawable/ic_date" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <View
+
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="#808080" />
+
     </LinearLayout>
 
+
+
     <FrameLayout
+        android:layout_marginTop="5dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/expenseRV"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="2dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             />
@@ -112,7 +309,7 @@
             android:layout_marginBottom="3dp"
             android:layout_marginRight="25dp"
             app:fabSize="auto"
-            app:backgroundTint="#232F34"
+            app:backgroundTint="@color/colorPrimary"
             app:srcCompat="@drawable/ic_add_black_24dp"
 
             />

@@ -7,6 +7,7 @@
     android:orientation="vertical"
     tools:context=".DashboardFragment">
 
+
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -43,19 +44,19 @@
     </android.support.v7.widget.Toolbar>
 
     <TextView
-        android:layout_marginTop="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
         android:text="Select Expense Type"
         android:textAlignment="center"
         android:textColor="#000"
         android:textSize="14sp" />
 
     <android.support.v7.widget.CardView
-        android:layout_marginTop="6dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
         app:cardCornerRadius="5dp"
         app:cardElevation="3dp"
         app:cardUseCompatPadding="true">
@@ -63,10 +64,10 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="Expense Type  ---->"
             android:layout_marginLeft="30dp"
-            android:textAlignment="center"
             android:gravity="center_vertical"
+            android:text="Expense Type  ---->"
+            android:textAlignment="center"
             android:textColor="#584F4F"
             android:textSize="14sp" />
 
@@ -150,7 +151,7 @@
                     android:id="@+id/dashBoardfromDateCalenderBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
+                    android:layout_marginLeft="5dp"
                     android:layout_marginRight="50dp"
                     android:clickable="true"
                     app:srcCompat="@drawable/ic_date" />
@@ -184,7 +185,7 @@
                     android:id="@+id/dashBoardtoDateCalenderBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
+                    android:layout_marginLeft="5dp"
                     android:clickable="true"
                     app:srcCompat="@drawable/ic_date" />
             </LinearLayout>
@@ -230,7 +231,7 @@
                 <TextView
                     android:layout_width="110dp"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/textview_back_shape"
+                    android:background="@drawable/deashborad_text_bg"
                     android:gravity="center"
                     android:padding="5dp"
                     android:text="Total Expense"

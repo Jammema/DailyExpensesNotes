@@ -1,19 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_margin="3dp"
     android:layout_height="wrap_content">
 
     <android.support.v7.widget.CardView
-        app:cardElevation="5dp"
         app:cardCornerRadius="5dp"
         app:cardUseCompatPadding="true"
-        android:padding="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <LinearLayout
             android:gravity="center_vertical"
             android:layout_width="match_parent"
@@ -30,43 +28,58 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Expense Type"
-                    android:textColor="#3E2723"
-                    android:textStyle="bold"/>
+                    android:textSize="16dp"
+                    android:textColor="@color/text_color"/>
+
                 <TextView
                     android:layout_marginTop="5dp"
                     android:id="@+id/expensDateTV"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Expense Date"
-                    android:textColor="#360629"
-                    android:textStyle="bold"/>
+                    android:textSize="14dp"
+                    android:textColor="@color/text_color" />
 
             </LinearLayout>
-            <ImageView
-                android:layout_marginRight="5dp"
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                app:srcCompat="@drawable/ic_taka"
-                />
-            <TextView
-                android:layout_marginRight="30dp"
-                android:id="@+id/expenseAmountTV"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="amount"
+
+            <LinearLayout
                 android:background="@drawable/textview_back_shape"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
-                android:textColor="#fff"
-                />
+                android:paddingLeft="10dp"
+                android:layout_gravity="center"
+                android:layout_marginRight="10dp"
+                android:paddingRight="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:text="Tk."
+                    android:textColor="#fff"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:id="@+id/expenseAmountTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="250"
+                    android:layout_marginLeft="2dp"
+                    android:textColor="#fff"
+                    />
+
+
+            </LinearLayout>
+
+
             <ImageView
                 android:id="@+id/popupMenuBtn"
                 android:clickable="true"
+                android:tint="@color/text_color"
                 android:layout_marginRight="5dp"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
                 app:srcCompat="@drawable/ic_setting"
                 />
 

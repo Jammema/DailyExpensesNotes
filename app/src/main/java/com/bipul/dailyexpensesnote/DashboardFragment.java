@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -45,6 +46,8 @@ public class DashboardFragment extends Fragment {
     int currentPosition=0;
     private long  fdate,tdate;
 
+    private LinearLayout fromDateLL,toDateLL;
+
 
     public DashboardFragment() {
         // Required empty public constructor
@@ -68,6 +71,10 @@ public class DashboardFragment extends Fragment {
         toTV=view.findViewById(R.id.dashBoardtoDateTV);
         totalCostTv=view.findViewById(R.id.totalCostTV);
         helper=new DatabaseHelper(context);
+
+        fromDateLL = view.findViewById(R.id.fromDataLL);
+        toDateLL = view.findViewById(R.id.toDataLL);
+
 
 
         try {
@@ -156,7 +163,7 @@ public class DashboardFragment extends Fragment {
             }
         };
 
-        fromDatePickerBtn.setOnClickListener(new View.OnClickListener() {
+        fromDateLL.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //set Date as begining of the month
@@ -187,7 +194,7 @@ public class DashboardFragment extends Fragment {
             }
         };
 
-        toDatePickerbtn.setOnClickListener(new View.OnClickListener() {
+        toDateLL.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //set Date as begining of the month

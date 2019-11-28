@@ -32,12 +32,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_TABLE);
-
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
         try {
             db.execSQL(DROAP_TABLE);
             onCreate(db);
@@ -45,8 +43,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         } catch (Exception e) {
             Toast.makeText(context, "exception : " + e, Toast.LENGTH_SHORT).show();
         }
-
-
     }
 
     public long insertData(String type, int amount, long date, String time, String document) {
@@ -60,7 +56,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         long id = sqLiteDatabase.insert(TABLE_NAME, null, contentValues);
         sqLiteDatabase.close();
         return id;
-
     }
 
     //long fromDate,long toDate,String type
@@ -70,7 +65,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return cursor;
     }
 
-
     //view total expense
     public Cursor showTotalExpense(long fromDate, long toDate, String type) {
         SQLiteDatabase sqLiteDatabase = getReadableDatabase();
@@ -78,17 +72,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return cursor;
     }
 
-
-
-
     //delete
     public void deleteData(int id) {
         getWritableDatabase().delete(TABLE_NAME, "Id=?", new String[]{String.valueOf(id)});
     }
 
-
     //update
-
     public void update(String id, String type, int amount, long date, String time) {
         SQLiteDatabase sqLiteDatabase = getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -97,8 +86,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(COL_Date, date);
         contentValues.put(COL_TIME, time);
         sqLiteDatabase.update(TABLE_NAME, contentValues, "Id=?", new String[]{id});
-
-
     }
 
 

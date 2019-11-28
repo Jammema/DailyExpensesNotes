@@ -49,8 +49,9 @@ import java.util.regex.Pattern;
 public class AddExpenseFragment extends Fragment {
     private Spinner typeSpinner;
     private EditText amountET,dateET,timeET;
-    private Button addDocument,addExpense,cancelAddBtn;
-    private ImageView datePickBtn,timePickBtn;
+    private Button addDocument,addExpense;
+
+    private ImageView datePickBtn,timePickBtn,cancelAddBtn;
     private ImageView documentImage;
     private Bitmap bitmap=null;
     private String documentURL="";

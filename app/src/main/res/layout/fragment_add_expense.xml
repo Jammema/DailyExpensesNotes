@@ -5,42 +5,92 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="10dp"
-    android:background="#37474F"
     tools:context=".AddExpenseFragment">
 
-
-
-    <android.support.v7.widget.CardView
-        app:cardCornerRadius="5dp"
-        app:cardUseCompatPadding="true"
-        app:cardElevation="3dp"
-        android:padding="10dp"
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <LinearLayout
-            android:background="@drawable/spinner_back"
-            android:layout_margin="8dp"
-            android:gravity="center_horizontal"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_marginBottom="5dp"
+        android:background="@color/colorPrimary"
+        android:elevation="3dp">
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_marginRight="10dp"
-                android:textAlignment="center"
+            android:layout_height="wrap_content">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Add Expenses"
+                    android:textColor="@android:color/white"
+                    android:textSize="22sp" />
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/addActivityCancelExpenseBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Select Expense Type"
-                android:textColor="#000"
-                />
+                android:layout_alignParentEnd="true"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/ic_close_black_24dp"
+                android:tint="@android:color/white" />
+
+
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.Toolbar>
+
+    <TextView
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:text="Select Expense Type"
+        android:textAlignment="center"
+        android:textColor="#000"
+        android:textSize="14sp" />
+
+    <android.support.v7.widget.CardView
+        android:layout_marginTop="6dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="3dp"
+        app:cardUseCompatPadding="true">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Expense Type  ---->"
+            android:layout_marginLeft="30dp"
+            android:textAlignment="center"
+            android:gravity="center_vertical"
+            android:textColor="#584F4F"
+            android:textSize="14sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="right"
+            android:orientation="horizontal">
 
             <Spinner
                 android:id="@+id/addActivityTypeSpinnerID"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:spinnerMode="dropdown"
-                android:outlineProvider="background"
-                android:outlineSpotShadowColor="@color/colorAccent"/>
+                android:layout_gravity="center_vertical"
+                android:spinnerMode="dropdown" />
         </LinearLayout>
 
 
@@ -48,188 +98,237 @@
 
 
 
-    <EditText
-        android:layout_marginTop="10dp"
+  <!--  <EditText
         android:id="@+id/addActtivityexpenseAmountET"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:hint="Enter Expense Amount"
-        android:textSize="16sp"
-        android:inputType="number"
-        android:singleLine="true"
         android:imeOptions="actionNext"
-        android:background="@drawable/edit_text_background"
+        android:inputType="number"
         android:padding="5dp"
-        />
+        android:singleLine="true"
+        android:textSize="16sp" />-->
+
+    <TextView
+        android:layout_marginTop="16dp"
+        android:layout_width="match_parent"
+        android:textSize="12dp"
+        android:text="Expense Amount"
+        android:layout_marginBottom="6dp"
+        android:textColor="@color/gray_white"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_height="wrap_content"/>
+
+    <EditText
+        android:id="@+id/addActtivityexpenseAmountET"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="15dp"
+        android:paddingRight="10dp"
+        android:singleLine="true"
+        android:drawableTint="@color/grayColor"
+        android:layout_marginRight="15dp"
+        android:hint="Enter Expense Amount"
+        android:textSize="14dp"
+        android:inputType="number"
+        android:paddingLeft="8dp"
+        android:background="@drawable/edit_baground"
+        android:layout_height="45dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:textSize="12dp"
+        android:text="Expense Date"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="6dp"
+        android:textColor="@color/gray_white"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_height="wrap_content"/>
+
     <FrameLayout
-        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <EditText
             android:id="@+id/addActivityexpenseDateET"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:background="@drawable/edit_baground"
+            android:layout_height="45dp"
             android:hint="Enter Expense Date"
-            android:singleLine="true"
             android:imeOptions="actionNext"
-            android:background="@drawable/edit_text_background"
+            android:textSize="14dp"
+            android:paddingRight="10dp"
             android:padding="5dp"
-            />
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:singleLine="true" />
+
         <ImageView
             android:id="@+id/addActivityDatePickerBtn"
-            android:clickable="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_date"
             android:layout_gravity="end|center_vertical"
-            android:layout_marginRight="3dp"
-            />
+            android:layout_marginRight="25dp"
+            android:clickable="true"
+            app:srcCompat="@drawable/ic_date_range_black_24dp" />
 
     </FrameLayout>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:textSize="12dp"
+        android:text="Expense Time"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="6dp"
+        android:textColor="@color/gray_white"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_height="wrap_content"/>
+
     <FrameLayout
-        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <EditText
             android:id="@+id/addActivityexpenseTimeET"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:hint="Enter Expense Time"
-            android:singleLine="true"
-            android:imeOptions="actionDone"
-            android:background="@drawable/edit_text_background"
+            android:layout_height="45dp"
+            android:imeOptions="actionNext"
+            android:textSize="14dp"
+            android:background="@drawable/edit_baground"
+            android:paddingRight="10dp"
             android:padding="5dp"
-            />
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:singleLine="true" />
 
         <ImageView
             android:id="@+id/addActiviTimePickerBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end|center_vertical"
-            android:layout_marginRight="3dp"
+            android:layout_marginRight="25dp"
             android:clickable="true"
-            app:srcCompat="@drawable/ic_access_time_black_24dp"
-            />
+            app:srcCompat="@drawable/ic_access_time_black_24dp" />
 
     </FrameLayout>
 
     <ImageView
         android:id="@+id/fileIV"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:visibility="gone"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="2dp"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        app:srcCompat="@drawable/ic_document"
-        />
+        app:srcCompat="@drawable/ic_document" />
 
     <TextView
         android:id="@+id/chooseTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAlignment="center"
         android:text="Uploaded Documents Photo"
-        android:textStyle="bold"
+        android:textAlignment="center"
         android:textColor="#ABC2BE"
-        android:textSize="16sp"/>
+        android:visibility="gone"
+        android:textSize="16sp"
+        android:textStyle="bold" />
 
     <LinearLayout
         android:id="@+id/cameraGalleryLLfield"
-        android:weightSum="9"
-        android:visibility="gone"
-        android:gravity="center_horizontal|center_vertical"
-        android:layout_margin="8dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_margin="8dp"
+        android:gravity="center_horizontal|center_vertical"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        android:weightSum="9">
 
         <LinearLayout
             android:id="@+id/cameraBtnID"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
             android:clickable="true"
             android:gravity="center_horizontal"
-            android:layout_width="0dp"
-            android:layout_weight="3"
-            android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <ImageView
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                app:srcCompat="@drawable/ic_camera"/>
+                app:srcCompat="@drawable/ic_camera" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Camera"
                 android:textColor="#fff"
-                android:textStyle="bold"
-                android:textSize="14sp"/>
+                android:textSize="14sp"
+                android:textStyle="bold" />
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/galleryBtnID"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
             android:clickable="true"
             android:gravity="center_horizontal"
-            android:layout_width="0dp"
-            android:layout_weight="3"
-            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <ImageView
                 android:id="@+id/galleryButtonID"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                app:srcCompat="@drawable/ic_gallery"/>
+                app:srcCompat="@drawable/ic_gallery" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Gallery"
-                android:textStyle="bold"
                 android:textColor="#fff"
-                android:textSize="14sp"/>
+                android:textSize="14sp"
+                android:textStyle="bold" />
 
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/cencleButtonID"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
             android:clickable="true"
             android:gravity="center_horizontal|center_vertical"
-            android:layout_width="0dp"
-            android:layout_weight="3"
-            android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <ImageView
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                app:srcCompat="@drawable/ic_cancel"/>
+                app:srcCompat="@drawable/ic_cancel" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Cancle"
-                android:textStyle="bold"
                 android:textColor="#fff"
-                android:textSize="14sp"/>
+                android:textSize="14sp"
+                android:textStyle="bold" />
 
 
         </LinearLayout>
 
 
-
-
-
-
-
     </LinearLayout>
 
 
-
-
-
     <LinearLayout
-        android:gravity="center_vertical"
-        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center_vertical"
         android:orientation="vertical">
 
         <Button
@@ -242,42 +341,55 @@
             android:text="Add Document(if any)"
             android:textAllCaps="false"
             android:textColor="#fff"
+            android:visibility="gone"
             android:textSize="14sp" />
 
     </LinearLayout>
 
 
     <LinearLayout
-        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <Button
+        android:layout_marginTop="10dp"
+        android:orientation="vertical">
+
+      <!--  <Button
             android:id="@+id/addActivityAddExpenseBtn"
             android:layout_width="0dp"
-            android:layout_weight="0.5"
             android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:background="@drawable/button_backgrond"
             android:text="Add expense"
-            android:background="@drawable/button_backgrond"
+            android:textAllCaps="false"
             android:textColor="#fff"
-            android:textSize="16sp"
-            android:textAllCaps="false"/>
+            android:textSize="16sp" />-->
+
         <Button
-            android:id="@+id/addActivityCancelExpenseBtn"
-            android:layout_marginLeft="10dp"
-            android:layout_width="0dp"
-            android:layout_weight="0.5"
+            android:id="@+id/addActivityAddExpenseBtn"
+            android:layout_marginBottom="30dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"
+            android:text="Add expense"
+            android:textAllCaps="false"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:background="@drawable/button_baground"/>
+
+
+      <!--  <Button
+            android:id="@+id/addActivityCancelExpenseBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="0.5"
+            android:background="@drawable/button_baground"
             android:text="Cancel"
-            android:background="@drawable/button_backgrond"
+            android:textAllCaps="false"
             android:textColor="#fff"
-            android:textSize="16sp"
-            android:textAllCaps="false"/>
+            android:textSize="16sp" />-->
 
     </LinearLayout>
-
-
-
 
 
 </LinearLayout>
