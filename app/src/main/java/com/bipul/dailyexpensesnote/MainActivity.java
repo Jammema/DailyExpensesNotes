@@ -24,14 +24,16 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
-                case R.id.navigation_dashboard:
-                    replaceFragment(new DashboardFragment());
 
-                    return true;
                 case R.id.navigation_Expenses:
                     replaceFragment(new ExpenseFragment());
-
                     return true;
+
+                case R.id.navigation_dashboard:
+                    replaceFragment(new DashboardFragment());
+                    return true;
+
+
             }
             return false;
         }
@@ -41,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        replaceFragment(new DashboardFragment());
+        replaceFragment(new ExpenseFragment());
 
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);

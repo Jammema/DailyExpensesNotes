@@ -17,9 +17,11 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -37,13 +39,11 @@ public class ExpenseFragment extends Fragment {
     private Spinner eTypeSpinner;
     private TextView fromDateTv,toDateTv;
     private ImageView fromDateBtn,toDateBtn;
+    private TextView totalExpenseTV;
 
     String []typeExpense;
     private String typeOfExpense;
     private int count=0;
-
-
-
 
     private FloatingActionButton addButton;
     private RecyclerView expenseRB;
@@ -51,6 +51,9 @@ public class ExpenseFragment extends Fragment {
     private AdapterExpense adapterExpense;
     private DatabaseHelper helper;
     private Context context;
+
+    int totalAmount = 0;
+    int tAmount=0;
 
 
     private Calendar calendar;
@@ -67,6 +70,17 @@ public class ExpenseFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_expense, container, false);
         context=container.getContext();
+
+
+     /*   Bundle bundle = getArguments();
+
+        if (bundle!=null){
+            tAmount = bundle.getInt("a");
+            totalAmount = totalAmount+tAmount;
+            totalExpenseTV.setText(String.valueOf(totalAmount));
+        }*/
+
+
         init(view);
         addData();
 
@@ -85,6 +99,9 @@ public class ExpenseFragment extends Fragment {
             e.printStackTrace();
         }
         return  view;
+
+
+
     }
 
     private void initFiltardata(final View view) throws ParseException {
@@ -116,10 +133,6 @@ public class ExpenseFragment extends Fragment {
 
             }
         } );
-
-
-
-
 
         //customize date range within calander
 
@@ -167,13 +180,8 @@ public class ExpenseFragment extends Fragment {
                 //set Date as begining of the month
                 DatePickerDialog datePickerDialog=new DatePickerDialog(getContext(),fromDateListener,year,month,fromDay);
                 datePickerDialog.show();
-
-
-
             }
         });
-
-
 
         //toDate
 
@@ -208,13 +216,8 @@ public class ExpenseFragment extends Fragment {
                 DatePickerDialog datePickerDialog=new DatePickerDialog(getContext(),toDateListener,year,month,toDay);
                 datePickerDialog.show();
 
-
-
             }
         });
-
-
-
 
     }
 
@@ -240,21 +243,23 @@ public class ExpenseFragment extends Fragment {
         long toDate=d2.getTime();
 
 
-
-
         expenseList.clear();                    //clear previous data
         adapterExpense.notifyDataSetChanged();
 
         Cursor cursor=helper.showAllData();
+
         while (cursor.moveToNext()){
             int id=cursor.getInt(cursor.getColumnIndex(helper.COL_ID));
             String timeTo=cursor.getString(cursor.getColumnIndex(helper.COL_TIME));
-            int amount=cursor.getInt(cursor.getColumnIndex(helper.COL_Amount));
+           int amount=cursor.getInt(cursor.getColumnIndex(helper.COL_Amount));
             String type=cursor.getString(cursor.getColumnIndex(helper.COL_TYPE));
 
             long dateFromDB=cursor.getLong(cursor.getColumnIndex(helper.COL_Date));
             String dateTo=dateFormat.format(dateFromDB);
+
             count++;
+
+            Toast.makeText(context, ""+totalAmount, Toast.LENGTH_SHORT).show();
 
             // Toast.makeText(context,"Check date : "+dateFromDB,Toast.LENGTH_LONG).show();
 
@@ -273,9 +278,11 @@ public class ExpenseFragment extends Fragment {
                 //adapterExpense.notifyDataSetChanged();
             }
 
-
-
         }
+
+
+        /*totalExpense.setText(totalAmount);
+        totalAmount=0;*/
 
     }
 
@@ -295,6 +302,8 @@ public class ExpenseFragment extends Fragment {
         eTypeSpinner =view.findViewById(R.id.showActivityTypeSpinnerID);
         fromDateTv=view.findViewById(R.id.viewFromDateTV);
         toDateTv=view.findViewById(R.id.viewToDateTV);
+        totalExpenseTV = view.findViewById(R.id.totalExpenseET);
+
 
 
     }

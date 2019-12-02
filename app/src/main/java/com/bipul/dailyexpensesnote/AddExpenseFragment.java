@@ -60,6 +60,8 @@ public class AddExpenseFragment extends Fragment {
     private Calendar calendar;
     private int hour,minute;
 
+    String totalAmount;
+
 
 
     private LinearLayout cameraGalleryBtnField,camera,gallery,cancle;
@@ -154,19 +156,8 @@ public class AddExpenseFragment extends Fragment {
                     }
                 });
 
-
-
-
-
-
-
-
             }
         });
-
-
-
-
 
         //time picker listner
         final TimePickerDialog.OnTimeSetListener timePick=new TimePickerDialog.OnTimeSetListener() {
@@ -195,18 +186,10 @@ public class AddExpenseFragment extends Fragment {
                 TimePickerDialog timePickerDialog=new TimePickerDialog(context,timePick,hour,minute,false);
                 timePickerDialog.updateTime(hour,minute);
                 timePickerDialog.show();
-
-
-
-
-
             }
 
 
         });
-
-
-
 
 
         //add Document  section
@@ -228,7 +211,9 @@ public class AddExpenseFragment extends Fragment {
                 String getdate=dateET.getText().toString();
                 DateValidate dv=new DateValidate();
                 dv.matcher = Pattern.compile(dv.DATE_PATTERN).matcher(getdate);           //check valid Date from ValidDate class
-                if(amountET.getText().toString().equals("")||dateET.getText().toString().equals("")) {
+
+                totalAmount = amountET.getText().toString();
+                if(totalAmount.equals("")||dateET.getText().toString().equals("")) {
                     if (amountET.getText().toString().equals("")) {
                         amountET.setError("please enter amount");
                         amountET.requestFocus();
@@ -236,8 +221,6 @@ public class AddExpenseFragment extends Fragment {
                         dateET.setError("please enter date from date picker");
                         dateET.requestFocus();
                     }
-
-
 
                 }
                 else if(!dv.matcher.matches()){
@@ -270,6 +253,9 @@ public class AddExpenseFragment extends Fragment {
                     else{
                         Toast.makeText(context,"Expense Data : "+id+" is Inserted.",Toast.LENGTH_SHORT).show();
 
+                       /* Bundle bundle = new Bundle();
+                        bundle.putInt("a",uamount);
+                         expenseFragment.setArguments(bundle);*/
                         //back to fragment when add expense complete
                         ExpenseFragment expenseFragment=new ExpenseFragment();
                         FragmentManager manager=getActivity().getSupportFragmentManager();
@@ -277,6 +263,7 @@ public class AddExpenseFragment extends Fragment {
                         ft.replace(R.id.frameLayoutID,expenseFragment);
                         ft.addToBackStack(null);
                         ft.commit();
+
 
 
 

@@ -11,6 +11,7 @@
         android:layout_height="wrap_content"
         android:text="Please Pick a date:"
         android:gravity="center_horizontal"/>
+
     <DatePicker
         android:id="@+id/datePickerDialogue"
         android:layout_width="match_parent"
@@ -21,11 +22,24 @@
         android:background="#8A8989"
         android:layout_width="match_parent"
         android:layout_height="1dp"/>
-    <Button
+   <!-- <Button
         android:id="@+id/doneButton"
         android:background="#F5F3F3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Done"/>
+        android:text="Done"/>-->
+
+    <Button
+        android:id="@+id/doneButton"
+        android:layout_marginBottom="30dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp"
+        android:text="Selete"
+        android:textAllCaps="false"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/white"
+        android:background="@drawable/button_baground"/>
+
 
 </LinearLayout>
