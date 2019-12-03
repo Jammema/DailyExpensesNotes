@@ -4,13 +4,13 @@
 
     <item
         android:id="@+id/navigation_Expenses"
-        android:icon="@drawable/expenses_icon_512"
-        android:title="@string/title_expensess" />
+        android:icon="@drawable/dashboard_icon_512"
+        android:title="@string/title_dashboard" />
 
     <item
         android:id="@+id/navigation_dashboard"
-        android:icon="@drawable/dashboard_icon_512"
-        android:title="Dashboard" />
+        android:icon="@drawable/expenses_icon_512"
+        android:title="@string/title_expensess" />
 
     <item
         android:id="@+id/navigation_Income"

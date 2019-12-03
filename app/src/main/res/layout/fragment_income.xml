@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".DashboardFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".IncomeFragment">
 
 
     <android.support.v7.widget.Toolbar
@@ -31,8 +31,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="50dp"
-                    android:text="filtter Expense"
+                    android:layout_marginRight="30dp"
+                    android:text="Flittering Income"
                     android:textColor="@android:color/white"
                     android:textSize="22sp" />
 
@@ -43,31 +43,38 @@
 
     </android.support.v7.widget.Toolbar>
 
+
+
     <TextView
+        android:id="@+id/selectTV"
+        android:layout_below="@id/toolbar"
+        android:layout_marginTop="5dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
-        android:text="Select Expense Type"
+        android:text="Select Income Type"
         android:textAlignment="center"
         android:textColor="#000"
         android:textSize="14sp" />
 
     <android.support.v7.widget.CardView
+        android:id="@+id/spinnerCard"
+        android:layout_below="@+id/selectTV"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
-        app:cardCornerRadius="5dp"
-        app:cardElevation="3dp"
+        app:cardCornerRadius="3dp"
+        app:cardElevation="1dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
         app:cardUseCompatPadding="true">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:text="Income Type  ---->"
             android:layout_marginLeft="30dp"
-            android:gravity="center_vertical"
-            android:text="Expense Type  ---->"
             android:textAlignment="center"
+            android:gravity="center_vertical"
             android:textColor="#584F4F"
             android:textSize="14sp" />
 
@@ -78,7 +85,7 @@
             android:orientation="horizontal">
 
             <Spinner
-                android:id="@+id/dBoardtypeSpinnerID"
+                android:id="@+id/showActivityTypeSpinnerID"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -88,14 +95,67 @@
 
     </android.support.v7.widget.CardView>
 
+    <!--<LinearLayout
+        android:padding="5dp"
+        android:gravity="center_horizontal|center_vertical"
+        android:orientation="horizontal"
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/viewFromDateTV"
+            android:layout_marginRight="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:text="from Date"
+            android:background="@drawable/textview_back_shape"
+            android:padding="5dp"
+            android:textColor="#fff"
+            />
+        <ImageView
+            android:id="@+id/fromDateCalenderBtn"
+            android:clickable="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_date"
+            android:layout_marginRight="50dp"
+            />
+
+        <TextView
+            android:id="@+id/viewToDateTV"
+            android:layout_marginRight="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:text="to Date"
+            android:background="@drawable/textview_back_shape"
+            android:padding="5dp"
+            android:textColor="#fff"
+            />
+
+        <ImageView
+            android:id="@+id/toDateCalenderBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            app:srcCompat="@drawable/ic_date"
+
+            />
+    </LinearLayout>-->
 
     <LinearLayout
+        android:id="@+id/dateLL"
+        android:layout_below="@+id/spinnerCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="5dp"
         android:orientation="vertical">
 
         <LinearLayout
+            android:layout_marginTop="4dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -105,7 +165,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight=".5"
                 android:gravity="center"
-                android:padding="5dp"
                 android:text="From Date"
                 android:textAllCaps="false"
                 android:textColor="#000"
@@ -116,7 +175,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight=".5"
                 android:gravity="center"
-                android:padding="5dp"
                 android:text="To Date"
                 android:textAllCaps="false"
                 android:textColor="#000"
@@ -139,7 +197,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/dashBoardFromDateTV"
+                    android:id="@+id/viewFromDateTV"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="5dp"
@@ -148,13 +206,13 @@
                     android:textSize="14sp" />
 
                 <ImageView
-                    android:id="@+id/dashBoardfromDateCalenderBtn"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/fromDateCalenderBtn"                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="50dp"
                     android:clickable="true"
                     app:srcCompat="@drawable/ic_date" />
+
             </LinearLayout>
 
 
@@ -173,7 +231,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/dashBoardtoDateTV"
+                    android:id="@+id/viewToDateTV"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="5dp"
@@ -182,8 +240,7 @@
                     android:textSize="14sp" />
 
                 <ImageView
-                    android:id="@+id/dashBoardtoDateCalenderBtn"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/toDateCalenderBtn"                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:clickable="true"
@@ -194,62 +251,31 @@
         </LinearLayout>
 
         <View
-
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:background="#808080" />
 
     </LinearLayout>
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="40dp"
-        android:layout_marginTop="60dp"
-        android:gravity="center_horizontal|center_vertical"
-        android:orientation="vertical">
-
-        <android.support.v7.widget.CardView
+        <android.support.design.widget.FloatingActionButton
+           android:id="@+id/addIncome"
+            android:elevation="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal|center_vertical"
-            android:background="@drawable/total_expense_circle_shape"
-            android:padding="10dp"
-            app:cardCornerRadius="20dp"
-            app:cardElevation="3dp"
-            app:cardUseCompatPadding="true">
-
-            <LinearLayout
-                android:layout_width="160dp"
-                android:layout_height="120dp"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="110dp"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/deashborad_text_bg"
-                    android:gravity="center"
-                    android:padding="5dp"
-                    android:text="Total Expense"
-                    android:textColor="#fff"
-                    android:textSize="14dp" />
-
-                <TextView
-                    android:id="@+id/totalCostTV"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:text="BDT 0"
-                    android:textColor="#000"
-                    android:textSize="16sp" />
-
-            </LinearLayout>
-        </android.support.v7.widget.CardView>
-    </LinearLayout>
+            android:layout_gravity="end|bottom"
+            android:layout_marginRight="25dp"
+            app:fabSize="auto"
+            android:layout_marginBottom="5dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            app:backgroundTint="@color/colorPrimary"
+            app:srcCompat="@drawable/ic_add_black_24dp"
+            />
 
 
-</LinearLayout>
+
+
+</RelativeLayout>

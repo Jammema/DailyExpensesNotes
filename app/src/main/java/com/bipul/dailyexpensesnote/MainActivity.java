@@ -36,6 +36,9 @@ public class MainActivity extends AppCompatActivity {
                     replaceFragment(new DashboardFragment());
                     return true;
 
+                case R.id.navigation_Income:
+                    replaceFragment(new IncomeFragment());
+                    return true;
 
             }
             return false;
@@ -48,12 +51,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         replaceFragment(new ExpenseFragment());
 
-
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         frameLayout = findViewById(R.id.frameLayoutID);
 
-        //hideSoftKeyboard(this);
     }
 
     @Override
@@ -72,7 +73,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-
         //exit confirmation Dialog create
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);   //it also may be: (MainActivity.this)
         alertDialogBuilder.setTitle("Exit Application?");
@@ -97,11 +97,4 @@ public class MainActivity extends AppCompatActivity {
         alertDialog.show();
     }
 
-    public static void hideSoftKeyboard(Activity activity) {
-        InputMethodManager inputMethodManager =
-                (InputMethodManager) activity.getSystemService(
-                        Activity.INPUT_METHOD_SERVICE);
-        inputMethodManager.hideSoftInputFromWindow(
-                activity.getCurrentFocus().getWindowToken(), 1);
-    }
 }
