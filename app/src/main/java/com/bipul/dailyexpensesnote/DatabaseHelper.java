@@ -55,6 +55,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
         long id = sqLiteDatabase.insert(TABLE_NAME, null, contentValues);
         sqLiteDatabase.close();
+
+        int a = 0;
+        amount = amount+a;
+
+        Toast.makeText(context, ""+amount, Toast.LENGTH_SHORT).show();
         return id;
     }
 
@@ -62,6 +67,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public Cursor showAllData() {
         SQLiteDatabase sqLiteDatabase = getReadableDatabase();
         Cursor cursor = sqLiteDatabase.rawQuery("select * from Expense ", null);
+
+      /*  int tAmount = 0;
+        tAmount=cursor.getInt(cursor.getColumnIndex(COL_Amount));
+        tAmount = tAmount+tAmount;
+        Toast.makeText(context, "database"+tAmount, Toast.LENGTH_SHORT).show();*/
         return cursor;
     }
 

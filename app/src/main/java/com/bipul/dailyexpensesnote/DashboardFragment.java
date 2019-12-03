@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -223,7 +224,6 @@ public class DashboardFragment extends Fragment {
         tdate=d2.getTime();
 
 
-
         int dbAmount=0;
         Cursor cursor=helper.showAllData();
         while (cursor.moveToNext()){
@@ -240,7 +240,6 @@ public class DashboardFragment extends Fragment {
             }
 
         }
-
 
         totalCostTv.setText(totAmount+"Tk");
         totAmount=0;

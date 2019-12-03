@@ -95,6 +95,8 @@ public class AddExpenseFragment extends Fragment {
     }
 
 
+
+
     //activity of get content
     private void process(View view) {
         //set Type into spinner
@@ -371,5 +373,6 @@ public class AddExpenseFragment extends Fragment {
         image.compress(compressFormat, quality, byteArrayOS);
         return Base64.encodeToString(byteArrayOS.toByteArray(), Base64.DEFAULT);
     }
+
 
 }
