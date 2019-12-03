@@ -17,11 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:datePickerMode="spinner"/>
-    <View
-        android:layout_marginTop="10dp"
-        android:background="#8A8989"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"/>
+
    <!-- <Button
         android:id="@+id/doneButton"
         android:background="#F5F3F3"
@@ -30,6 +26,7 @@
         android:text="Done"/>-->
 
     <Button
+        android:layout_marginTop="10dp"
         android:id="@+id/doneButton"
         android:layout_marginBottom="30dp"
         android:layout_marginRight="15dp"

@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -19,6 +20,7 @@ import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -84,16 +86,27 @@ public class UpdateExpenseFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_update_expense, container, false);
         context = container.getContext();
 
+        Activity activity = new Activity();
 
         calendar = Calendar.getInstance();
         hour = calendar.get(Calendar.HOUR);
         minute = calendar.get(Calendar.MINUTE);
+
+      //  hideSoftKeyboard(activity);
 
 
         init(view);
         process(view);
 
         return view;
+    }
+
+    public static void hideSoftKeyboard(Activity activity) {
+        InputMethodManager inputMethodManager =
+                (InputMethodManager) activity.getSystemService(
+                        Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(
+                activity.getCurrentFocus().getWindowToken(), 0);
     }
 
     private void init(View view) {
@@ -112,6 +125,9 @@ public class UpdateExpenseFragment extends Fragment {
         cencleBtn = view.findViewById(R.id.updateImageCencleBtnnID);
         updatedocumentBtn = view.findViewById(R.id.updateDocumentMethod);
         cancelUpdateBtn = view.findViewById(R.id.updateCancelBtn);
+
+        BottomNavigationView navBar = getActivity().findViewById(R.id.navigation);
+        navBar.setVisibility(View.INVISIBLE);
     }
 
     private void process(View view) {

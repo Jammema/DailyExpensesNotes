@@ -32,6 +32,7 @@ private DatabaseHelper helper;
 
 
 
+
         //showing document operation
         String getId=getIntent().getStringExtra("Id");
         int id=Integer.valueOf(getId);

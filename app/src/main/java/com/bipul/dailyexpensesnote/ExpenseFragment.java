@@ -5,6 +5,7 @@ import android.app.DatePickerDialog;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -99,6 +100,8 @@ public class ExpenseFragment extends Fragment {
             e.printStackTrace();
         }
         return  view;
+
+
 
 
 
@@ -304,7 +307,8 @@ public class ExpenseFragment extends Fragment {
         toDateTv=view.findViewById(R.id.viewToDateTV);
         totalExpenseTV = view.findViewById(R.id.totalExpenseET);
 
-
+        BottomNavigationView navBar = getActivity().findViewById(R.id.navigation);
+        navBar.setVisibility(View.VISIBLE);
 
     }
 }

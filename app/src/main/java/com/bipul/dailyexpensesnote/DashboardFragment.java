@@ -210,16 +210,8 @@ public class DashboardFragment extends Fragment {
         while (cursor.moveToNext()){
             int totalExpense=cursor.getInt(cursor.getColumnIndex(helper.TOT_EXPENSE));   //getTotal amount
             totalCostTv.setText("BDT "+totalExpense);
-
-
         }
-
 */
-
-
-
-
-
 
     }
 
