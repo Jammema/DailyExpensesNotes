@@ -8,4 +8,5 @@
     <color name="grayColor">#95959797</color>
     <color name="text_color">#584F4F</color>
     <color name="bg_color">#f9feff</color>
+    <color name="view_color">#59808080</color>
 </resources>

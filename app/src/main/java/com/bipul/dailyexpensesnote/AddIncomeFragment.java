@@ -33,8 +33,6 @@ public class AddIncomeFragment extends Fragment {
         init();
         addData();
 
-
-
         return view;
     }
 

@@ -314,8 +314,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginRight="40dp"
                 android:background="#808080" />
-
-
+            
             <LinearLayout
                 android:id="@+id/toDataLL"
                 android:layout_width="wrap_content"
@@ -359,7 +358,6 @@
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/expenseRV"
-            android:layout_marginTop="2dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             />
