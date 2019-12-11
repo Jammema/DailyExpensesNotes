@@ -1,4 +1,4 @@
-package com.bipul.dailyexpensesnote;
+package com.bipul.dailyexpensesnote.income;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -7,9 +7,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.widget.Toast;
 
-public class DatabaseHelper extends SQLiteOpenHelper {
-    private static String DB_NAME = "Expenses.db";
-    private static String TABLE_NAME = "Expense";
+public class IncomeDatabaseHelper extends SQLiteOpenHelper {
+
+    private static String DB_NAME = "Incomes.db";
+    private static String TABLE_NAME = "Income";
 
     public static String COL_TYPE = "Type";
     public static String COL_Amount = "Amount";
@@ -24,7 +25,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static int VERSION = 8;
     private Context context;
 
-    public DatabaseHelper(Context context) {
+    public IncomeDatabaseHelper(Context context) {
         super(context, DB_NAME, null, VERSION);
         this.context = context;
     }
@@ -59,7 +60,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         int a = 0;
         amount = amount+a;
 
-       // Toast.makeText(context, ""+amount, Toast.LENGTH_SHORT).show();
+        // Toast.makeText(context, ""+amount, Toast.LENGTH_SHORT).show();
         return id;
     }
 
@@ -113,6 +114,4 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(COL_Document,documentUrl);
         sqLiteDatabase.update(TABLE_NAME, contentValues, "Id=?", new String[]{id});
     }
-
-
 }

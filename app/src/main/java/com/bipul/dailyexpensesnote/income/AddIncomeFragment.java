@@ -1,21 +1,18 @@
-package com.bipul.dailyexpensesnote;
+package com.bipul.dailyexpensesnote.income;
 
 
-import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -23,7 +20,6 @@ import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -34,6 +30,10 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
+
+import com.bipul.dailyexpensesnote.DateValidate;
+import com.bipul.dailyexpensesnote.ExpenseFragment;
+import com.bipul.dailyexpensesnote.R;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -48,10 +48,13 @@ import java.util.regex.Pattern;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AddExpenseFragment extends Fragment {
+public class AddIncomeFragment extends Fragment {
+    View view;
+    //FloatingActionButton addIncome;
+
     private Spinner typeSpinner;
     private EditText amountET, dateET, timeET;
-    private Button addDocument, addExpense;
+    private Button addDocument, addIncome;
 
     private ImageView datePickBtn, timePickBtn, cancelAddBtn;
     private ImageView documentImage;
@@ -67,12 +70,13 @@ public class AddExpenseFragment extends Fragment {
 
     private LinearLayout cameraGalleryBtnField, camera, gallery, cancle;
     private String typeOfExpense;
-    private DatabaseHelper helper;
+    private IncomeDatabaseHelper helper;
 
     private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
     private SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm aa");
 
-    public AddExpenseFragment() {
+
+    public AddIncomeFragment() {
         // Required empty public constructor
     }
 
@@ -81,7 +85,7 @@ public class AddExpenseFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_add_expense, container, false);
+        view =  inflater.inflate(R.layout.fragment_add_income, container, false);
 
         context = container.getContext();
         calendar = Calendar.getInstance();
@@ -90,18 +94,14 @@ public class AddExpenseFragment extends Fragment {
 
         init(view);
         process(view);
+
         return view;
-
     }
-
-
-
 
     //activity of get content
     private void process(View view) {
         //set Type into spinner
-        final String[] typeExpense = {"Food", "Bills", "Home", "Medicine", "Clothing", "Transport", "Health", "Gift","Tex","Baby",
-        "Beauty","Pet","Hamburger","Wine","Office","Travel","Book","Education","Social","Vegetables","Sport","Electronics"};
+        final String[] typeExpense = {"Salary", "Awards", "Grants", "Sale", "Rental", "Coupons", "Lottery", "Dividends","Investments"};
         ArrayAdapter arrayAdapter = new ArrayAdapter(context, android.R.layout.simple_list_item_activated_1, typeExpense);
         typeSpinner.setAdapter(arrayAdapter);
 
@@ -203,7 +203,7 @@ public class AddExpenseFragment extends Fragment {
 
 
 //add value into database
-        addExpense.setOnClickListener(new View.OnClickListener() {
+        addIncome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String getdate = dateET.getText().toString();
@@ -251,10 +251,10 @@ public class AddExpenseFragment extends Fragment {
                         bundle.putInt("a",uamount);
                          expenseFragment.setArguments(bundle);*/
                         //back to fragment when add expense complete
-                        ExpenseFragment expenseFragment = new ExpenseFragment();
+                        IncomeFragment incomeFragment = new IncomeFragment();
                         FragmentManager manager = getActivity().getSupportFragmentManager();
                         FragmentTransaction ft = manager.beginTransaction();
-                        ft.replace(R.id.frameLayoutID, expenseFragment);
+                        ft.replace(R.id.frameLayoutID, incomeFragment);
                         ft.addToBackStack(null);
                         ft.commit();
 
@@ -315,7 +315,7 @@ public class AddExpenseFragment extends Fragment {
         dateET = view.findViewById(R.id.addActivityexpenseDateET);
         timeET = view.findViewById(R.id.addActivityexpenseTimeET);
         addDocument = view.findViewById(R.id.addActivityaAddDocumentButton);
-        addExpense = view.findViewById(R.id.addActivityAddExpenseBtn);
+        addIncome = view.findViewById(R.id.addActivityAddExpenseBtn);
         datePickBtn = view.findViewById(R.id.addActivityDatePickerBtn);
         timePickBtn = view.findViewById(R.id.addActiviTimePickerBtn);
         documentImage = view.findViewById(R.id.fileIV);
@@ -325,7 +325,7 @@ public class AddExpenseFragment extends Fragment {
         cancle = view.findViewById(R.id.cencleButtonID);
         cancelAddBtn = view.findViewById(R.id.addActivityCancelExpenseBtn);
 
-        helper = new DatabaseHelper(context);
+        helper = new IncomeDatabaseHelper(context);
 
         BottomNavigationView navBar = getActivity().findViewById(R.id.navigation);
         navBar.setVisibility(View.INVISIBLE);
@@ -333,7 +333,6 @@ public class AddExpenseFragment extends Fragment {
     }
 
 
-//get Result from camera gallery image
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

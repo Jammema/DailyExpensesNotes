@@ -1,6 +1,5 @@
 package com.bipul.dailyexpensesnote;
 
-import android.app.Activity;
 import android.content.DialogInterface;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -12,8 +11,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.FrameLayout;
+
+import com.bipul.dailyexpensesnote.income.IncomeFragment;
 
 public class MainActivity extends AppCompatActivity {
 

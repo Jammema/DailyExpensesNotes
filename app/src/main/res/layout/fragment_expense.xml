@@ -371,6 +371,8 @@
             android:layout_marginBottom="3dp"
             android:layout_marginRight="25dp"
             app:fabSize="auto"
+            app:layout_anchor="@id/expenseRV"
+            app:layout_anchorGravity="bottom|right|end"
             app:backgroundTint="@color/colorPrimary"
             app:srcCompat="@drawable/ic_add_black_24dp"
 

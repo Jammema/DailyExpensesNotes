@@ -5,6 +5,7 @@ import android.app.DatePickerDialog;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -84,9 +85,11 @@ public class ExpenseFragment extends Fragment {
             totalExpenseTV.setText(String.valueOf(totalAmount));
         }*/
 
-
         init(view);
+        scrolling();
         addData();
+
+
 
         try {
             initFiltardata(view);
@@ -104,13 +107,34 @@ public class ExpenseFragment extends Fragment {
         return view;
 
 
+
+
+
+
+    }
+
+    private void scrolling() {
+       expenseRB.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if (dy > 0 && addButton.getVisibility() == View.VISIBLE) {
+                    addButton.hide();
+                } else if (dy < 0 && addButton.getVisibility() != View.VISIBLE) {
+                    addButton.show();
+                }
+
+
+            }
+        });
     }
 
     private void initFiltardata(final View view) throws ParseException {
         //get data from spinner and calender
 
         //set Type into spinner
-        typeExpense = new String[]{"All", "Rent", "Food", "Utility bills", "Medicine", "Cloathing", "Transport", "Health", "Gift"};
+        typeExpense = new String[]{"All","Food", "Bills", "Home", "Medicine", "Clothing", "Transport", "Health", "Gift","Tex","Baby",
+                "Beauty","Pet","Hamburger","Wine","Office","Travel","Book","Education","Social","Vegetables","Sport","Electronics"};
         ArrayAdapter arrayAdapter = new ArrayAdapter(context, android.R.layout.simple_list_item_activated_1, typeExpense);
         eTypeSpinner.setAdapter(arrayAdapter);
 

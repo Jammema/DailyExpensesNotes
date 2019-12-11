@@ -1,4 +1,4 @@
-package com.bipul.dailyexpensesnote;
+package com.bipul.dailyexpensesnote.income;
 
 
 import android.app.DatePickerDialog;
@@ -6,7 +6,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +20,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.bipul.dailyexpensesnote.R;
+import com.bipul.dailyexpensesnote.income.AddIncomeFragment;
+import com.bipul.dailyexpensesnote.income.IncomeDatabaseHelper;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -28,11 +34,13 @@ import java.util.Date;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class DashboardFragment extends Fragment {
+public class IncomeFragment extends Fragment {
+
+    private FloatingActionButton addButton;
 
     private ImageView fromDatePickerBtn,toDatePickerbtn;
     private Spinner typeSpinner;
-    private TextView fromTV,toTV,totalCostTv;
+    private TextView fromTV,toTV,totalIncomeTv;
     private SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy/MM/dd");
     private SimpleDateFormat timeFormat=new SimpleDateFormat("hh:mm aa");
     private String type;
@@ -41,7 +49,7 @@ public class DashboardFragment extends Fragment {
     private Calendar calendar;
     private int year,month,fromDay,toDay,hour,minute;
     private Context context;
-    private DatabaseHelper helper;
+    private IncomeDatabaseHelper inComeHelper;
     private int totAmount=0;
     private int count=0;
     int currentPosition=0;
@@ -50,47 +58,67 @@ public class DashboardFragment extends Fragment {
     private LinearLayout fromDateLL,toDateLL;
 
 
-    public DashboardFragment() {
+    public IncomeFragment() {
         // Required empty public constructor
     }
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
-        if(savedInstanceState!=null){
-            currentPosition=savedInstanceState.getInt("cSpinnerPosition");
-
-        }
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        View view =  inflater.inflate(R.layout.fragment_income, container, false);
         context=container.getContext();
-        View view = inflater.inflate(R.layout.fragment_dashboard, container, false);
-        typeSpinner=view.findViewById(R.id.dBoardtypeSpinnerID);
-        fromDatePickerBtn=view.findViewById(R.id.dashBoardfromDateCalenderBtn);
-        toDatePickerbtn=view.findViewById(R.id.dashBoardtoDateCalenderBtn);
-        fromTV=view.findViewById(R.id.dashBoardFromDateTV);
-        toTV=view.findViewById(R.id.dashBoardtoDateTV);
-        totalCostTv=view.findViewById(R.id.totalCostTV);
-        helper=new DatabaseHelper(context);
+        init(view);
+        addData();
+
+       /* try {
+            process();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }*/
+
+
+       /* try {
+            pullData();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }*/
+
+        return view;
+    }
+
+    private void addData() {
+
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AddIncomeFragment addInComeFragment = new AddIncomeFragment();
+                FragmentManager manager = getActivity().getSupportFragmentManager();
+                FragmentTransaction ft = manager.beginTransaction();
+                ft.replace(R.id.frameLayoutID, addInComeFragment);
+                ft.addToBackStack(null);
+                ft.commit();
+            }
+        });
+    }
+
+    private void init(View view) {
+        addButton = view.findViewById(R.id.addIncome);
+
+        // Inflate the layout for this fragment
+
+        typeSpinner=view.findViewById(R.id.showActivityTypeSpinnerID);
+        fromDatePickerBtn=view.findViewById(R.id.fromDateCalenderBtn);
+        toDatePickerbtn=view.findViewById(R.id.toDateCalenderBtn);
+        fromTV=view.findViewById(R.id.viewFromDateTV);
+        toTV=view.findViewById(R.id.viewToDateTV);
+        totalIncomeTv=view.findViewById(R.id.totalIncomeTV);
+        inComeHelper=new IncomeDatabaseHelper(context);
 
         fromDateLL = view.findViewById(R.id.fromDataLL);
         toDateLL = view.findViewById(R.id.toDataLL);
 
-        try {
-            process();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-
-        try {
-            pullData();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-
-        return view;
     }
 
     @Override
@@ -100,7 +128,7 @@ public class DashboardFragment extends Fragment {
 
     private void process() throws ParseException {
         //set Type into spinner
-        typeExpense= new String[]{"All", "Rent", "Food", "Utility bills", "Medicine", "Cloathing", "Transport", "Health", "Gift"};
+        typeExpense= new String[]{"All","Salary", "Awards", "Grants", "Sale", "Rental", "Coupons", "Lottery", "Dividends","Investments"};
         ArrayAdapter arrayAdapter=new ArrayAdapter(getContext(),android.R.layout.simple_list_item_activated_1,typeExpense);
         typeSpinner.setAdapter(arrayAdapter);
 
@@ -223,24 +251,23 @@ public class DashboardFragment extends Fragment {
 
 
         int dbAmount=0;
-        Cursor cursor=helper.showAllData();
+        Cursor cursor=inComeHelper.showAllData();
         while (cursor.moveToNext()){
-            long dateFromDB=cursor.getLong(cursor.getColumnIndex(helper.COL_Date));
-            String dbtype=cursor.getString(cursor.getColumnIndex(helper.COL_TYPE));
+            long dateFromDB=cursor.getLong(cursor.getColumnIndex(inComeHelper.COL_Date));
+            String dbtype=cursor.getString(cursor.getColumnIndex(inComeHelper.COL_TYPE));
             count++;
             if(type.equals(typeExpense[0])&&dateFromDB>=fdate&&dateFromDB<=tdate){       //when selected All in types
-                dbAmount=cursor.getInt(cursor.getColumnIndex(helper.COL_Amount));
+                dbAmount=cursor.getInt(cursor.getColumnIndex(inComeHelper.COL_Amount));
                 totAmount=totAmount+dbAmount;
             }
             else if(type.equals(dbtype)&&dateFromDB>=fdate&&dateFromDB<=tdate){          //when selected specific in types
-                dbAmount=cursor.getInt(cursor.getColumnIndex(helper.COL_Amount));
+                dbAmount=cursor.getInt(cursor.getColumnIndex(inComeHelper.COL_Amount));
                 totAmount=totAmount+dbAmount;
             }
 
         }
 
-        totalCostTv.setText(totAmount+"Tk");
+        totalIncomeTv.setText(totAmount+"Tk");
         totAmount=0;
     }
-
 }
