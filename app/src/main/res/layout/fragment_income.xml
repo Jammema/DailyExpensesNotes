@@ -85,7 +85,7 @@
             android:orientation="horizontal">
 
             <Spinner
-                android:id="@+id/showActivityTypeSpinnerID"
+                android:id="@+id/typeSpinner"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -197,7 +197,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/viewFromDateTV"
+                    android:id="@+id/fromDateTV"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="5dp"
@@ -206,7 +206,7 @@
                     android:textSize="14sp" />
 
                 <ImageView
-                    android:id="@+id/fromDateCalenderBtn"                    android:layout_width="wrap_content"
+                    android:id="@+id/fromDatePickerBtn"                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="50dp"
@@ -231,7 +231,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/viewToDateTV"
+                    android:id="@+id/toDateTV"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="5dp"
@@ -240,7 +240,7 @@
                     android:textSize="14sp" />
 
                 <ImageView
-                    android:id="@+id/toDateCalenderBtn"                    android:layout_width="wrap_content"
+                    android:id="@+id/toDatePickerbtn"                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:clickable="true"
@@ -258,15 +258,52 @@
             android:background="#808080" />
 
 
-        <TextView
-            android:layout_marginTop="90dp"
-            android:layout_gravity="center_vertical"
-            android:id="@+id/totalIncomeTV"
-            tools:text="50000"
-            android:textSize="20dp"
-            android:gravity="center"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="match_parent"
+            android:layout_margin="40dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="60dp"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:background="@drawable/total_expense_circle_shape"
+                android:padding="10dp"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="3dp"
+                app:cardUseCompatPadding="true">
+
+                <LinearLayout
+                    android:layout_width="160dp"
+                    android:layout_height="120dp"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="110dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/deashborad_text_bg"
+                        android:gravity="center"
+                        android:padding="5dp"
+                        android:text="Total Income"
+                        android:textColor="#fff"
+                        android:textSize="14dp" />
+
+                    <TextView
+                        android:id="@+id/totalIncomeTV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="BDT 0"
+                        android:textColor="#000"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+        </LinearLayout>
     </LinearLayout>
 
 

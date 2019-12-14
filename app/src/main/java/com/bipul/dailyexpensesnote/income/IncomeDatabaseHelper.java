@@ -67,7 +67,7 @@ public class IncomeDatabaseHelper extends SQLiteOpenHelper {
     //long fromDate,long toDate,String type
     public Cursor showAllData() {
         SQLiteDatabase sqLiteDatabase = getReadableDatabase();
-        Cursor cursor = sqLiteDatabase.rawQuery("select * from Expense ", null);
+        Cursor cursor = sqLiteDatabase.rawQuery("select * from Income ", null);
 
       /*  int tAmount = 0;
         tAmount=cursor.getInt(cursor.getColumnIndex(COL_Amount));

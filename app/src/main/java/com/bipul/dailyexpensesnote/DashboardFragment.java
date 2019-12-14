@@ -65,6 +65,7 @@ public class DashboardFragment extends Fragment {
         // Inflate the layout for this fragment
         context=container.getContext();
         View view = inflater.inflate(R.layout.fragment_dashboard, container, false);
+
         typeSpinner=view.findViewById(R.id.dBoardtypeSpinnerID);
         fromDatePickerBtn=view.findViewById(R.id.dashBoardfromDateCalenderBtn);
         toDatePickerbtn=view.findViewById(R.id.dashBoardtoDateCalenderBtn);

@@ -106,11 +106,6 @@ public class ExpenseFragment extends Fragment {
         }
         return view;
 
-
-
-
-
-
     }
 
     private void scrolling() {
@@ -123,8 +118,6 @@ public class ExpenseFragment extends Fragment {
                 } else if (dy < 0 && addButton.getVisibility() != View.VISIBLE) {
                     addButton.show();
                 }
-
-
             }
         });
     }
@@ -333,6 +326,5 @@ public class ExpenseFragment extends Fragment {
 
         BottomNavigationView navBar = getActivity().findViewById(R.id.navigation);
         navBar.setVisibility(View.VISIBLE);
-
     }
 }

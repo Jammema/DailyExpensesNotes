@@ -6,6 +6,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -55,6 +56,8 @@ public class IncomeFragment extends Fragment {
     int currentPosition=0;
     private long  fdate,tdate;
 
+    int dbAmount=0;
+
     private LinearLayout fromDateLL,toDateLL;
 
 
@@ -72,18 +75,18 @@ public class IncomeFragment extends Fragment {
         init(view);
         addData();
 
-       /* try {
+        try {
             process();
         } catch (ParseException e) {
             e.printStackTrace();
-        }*/
+        }
 
 
-       /* try {
+        try {
             pullData();
         } catch (ParseException e) {
             e.printStackTrace();
-        }*/
+        }
 
         return view;
     }
@@ -108,17 +111,19 @@ public class IncomeFragment extends Fragment {
 
         // Inflate the layout for this fragment
 
-        typeSpinner=view.findViewById(R.id.showActivityTypeSpinnerID);
-        fromDatePickerBtn=view.findViewById(R.id.fromDateCalenderBtn);
-        toDatePickerbtn=view.findViewById(R.id.toDateCalenderBtn);
-        fromTV=view.findViewById(R.id.viewFromDateTV);
-        toTV=view.findViewById(R.id.viewToDateTV);
+        typeSpinner=view.findViewById(R.id.typeSpinner);
+        fromDatePickerBtn=view.findViewById(R.id.fromDatePickerBtn);
+        toDatePickerbtn=view.findViewById(R.id.toDatePickerbtn);
+        fromTV=view.findViewById(R.id.fromDateTV);
+        toTV=view.findViewById(R.id.toDateTV);
         totalIncomeTv=view.findViewById(R.id.totalIncomeTV);
         inComeHelper=new IncomeDatabaseHelper(context);
 
         fromDateLL = view.findViewById(R.id.fromDataLL);
         toDateLL = view.findViewById(R.id.toDataLL);
 
+        BottomNavigationView navBar = getActivity().findViewById(R.id.navigation);
+        navBar.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -250,7 +255,7 @@ public class IncomeFragment extends Fragment {
         tdate=d2.getTime();
 
 
-        int dbAmount=0;
+
         Cursor cursor=inComeHelper.showAllData();
         while (cursor.moveToNext()){
             long dateFromDB=cursor.getLong(cursor.getColumnIndex(inComeHelper.COL_Date));
