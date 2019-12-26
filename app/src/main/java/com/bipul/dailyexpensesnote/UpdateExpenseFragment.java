@@ -41,13 +41,19 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.regex.Pattern;
 
+import io.blackbox_vision.datetimepickeredittext.view.DatePickerEditText;
+import io.blackbox_vision.datetimepickeredittext.view.TimePickerEditText;
+
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class UpdateExpenseFragment extends Fragment {
     private Spinner typeSpinner;
-    private EditText amountET, dateET, timeET;
+    private EditText amountET;
+    private DatePickerEditText dateET;
+    private TimePickerEditText timeET;
+
     private Button updateExpenseBtn, updatedocumentBtn;
     private ImageView datePickBtn, timePickBtn, cancelUpdateBtn;
     private ImageView filesetIV;

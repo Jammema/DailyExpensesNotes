@@ -205,22 +205,22 @@
                 android:layout_height="wrap_content">
 
                 <io.blackbox_vision.datetimepickeredittext.view.TimePickerEditText
-                    android:clickable="false"
-                    android:focusableInTouchMode="true"
                     android:id="@+id/addActivityexpenseTimeET"
                     android:layout_width="match_parent"
-                    android:hint="Enter Expense Time"
                     android:layout_height="45dp"
-                    android:imeOptions="actionNext"
-                    android:textSize="14dp"
-                    android:drawableRight="@drawable/ic_access_time_black_24dp"
-                    android:keepScreenOn="false"
-                    android:background="@drawable/edit_baground"
-                    android:paddingRight="10dp"
-                    android:padding="5dp"
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="15dp"
-                    android:singleLine="true" />
+                    android:background="@drawable/edit_baground"
+                    android:clickable="false"
+                    android:drawableRight="@drawable/ic_access_time_black_24dp"
+                    android:focusableInTouchMode="true"
+                    android:hint="Enter Expense Time"
+                    android:imeOptions="actionNext"
+                    android:keepScreenOn="false"
+                    android:padding="5dp"
+                    android:paddingRight="10dp"
+                    android:singleLine="true"
+                    android:textSize="14dp" />
 
                 <ImageView
                     android:id="@+id/addActiviTimePickerBtn"
