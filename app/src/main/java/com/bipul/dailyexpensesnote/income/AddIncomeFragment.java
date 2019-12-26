@@ -44,6 +44,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.regex.Pattern;
 
+import io.blackbox_vision.datetimepickeredittext.view.DatePickerEditText;
+import io.blackbox_vision.datetimepickeredittext.view.TimePickerEditText;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -53,7 +56,10 @@ public class AddIncomeFragment extends Fragment {
     //FloatingActionButton addIncome;
 
     private Spinner typeSpinner;
-    private EditText amountET, dateET, timeET;
+    private EditText amountET;
+    private DatePickerEditText dateET;
+    private TimePickerEditText timeET;
+
     private Button addDocument, addIncome;
 
     private ImageView datePickBtn, timePickBtn, cancelAddBtn;
