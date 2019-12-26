@@ -1,4 +1,4 @@
-package com.bipul.dailyexpensesnote;
+package com.bipul.dailyexpensesnote.expense;
 
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -12,10 +12,13 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bipul.dailyexpensesnote.database.ExpenseDatabaseHelper;
+import com.bipul.dailyexpensesnote.R;
+
 public class DisplayDocumentActivity extends AppCompatActivity {
 private TextView titleFoundMessage;
 private ImageView expenseDocumentimage;
-private DatabaseHelper helper;
+private ExpenseDatabaseHelper helper;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,7 +30,7 @@ private DatabaseHelper helper;
 
         titleFoundMessage=findViewById(R.id.documentFoundTitleTV);
         expenseDocumentimage=findViewById(R.id.expenseMemo);
-        helper=new DatabaseHelper(this);
+        helper=new ExpenseDatabaseHelper(this);
 
 
 

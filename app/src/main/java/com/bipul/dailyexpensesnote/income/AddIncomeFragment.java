@@ -32,7 +32,8 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.bipul.dailyexpensesnote.DateValidate;
-import com.bipul.dailyexpensesnote.ExpenseFragment;
+import com.bipul.dailyexpensesnote.database.IncomeDatabaseHelper;
+import com.bipul.dailyexpensesnote.expense.ExpenseFragment;
 import com.bipul.dailyexpensesnote.R;
 
 import java.io.ByteArrayOutputStream;
@@ -263,6 +264,8 @@ public class AddIncomeFragment extends Fragment {
                         ft.replace(R.id.frameLayoutID, incomeFragment);
                         ft.addToBackStack(null);
                         ft.commit();
+
+
 
 
                         //finish(); //need to add fragment for real time data change view

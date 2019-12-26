@@ -1,4 +1,4 @@
-package com.bipul.dailyexpensesnote;
+package com.bipul.dailyexpensesnote.database;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -7,9 +7,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.widget.Toast;
 
-public class DatabaseHelper extends SQLiteOpenHelper {
-    private static String DB_NAME = "Expenses.db";
-    private static String TABLE_NAME = "Expense";
+public class IncomeDatabaseHelper extends SQLiteOpenHelper {
+
+    private static String DB_NAME = "Incomes.db";
+    private static String TABLE_NAME = "Income";
 
     public static String COL_TYPE = "Type";
     public static String COL_Amount = "Amount";
@@ -17,14 +18,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static String COL_TIME = "Time";
     public static String COL_Document = "Document";
     public static String COL_ID = "Id";
-    public static String TOT_EXPENSE="Total";
+    public static String TOT_EXPENSE = "Total";
 
     private String DROAP_TABLE = "drop table if exists " + TABLE_NAME;
     private static String CREATE_TABLE = "create table " + TABLE_NAME + "( Id INTEGER primary key AUTOINCREMENT ,Type TEXT,Amount INTEGER,Date INTEGER,Time TEXT,Document TEXT)";
     private static int VERSION = 8;
     private Context context;
 
-    public DatabaseHelper(Context context) {
+    public IncomeDatabaseHelper(Context context) {
         super(context, DB_NAME, null, VERSION);
         this.context = context;
     }
@@ -57,28 +58,26 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         sqLiteDatabase.close();
 
         int a = 0;
-        amount = amount+a;
-
-       // Toast.makeText(context, ""+amount, Toast.LENGTH_SHORT).show();
         return id;
     }
 
     //long fromDate,long toDate,String type
     public Cursor showAllData() {
         SQLiteDatabase sqLiteDatabase = getReadableDatabase();
-        Cursor cursor = sqLiteDatabase.rawQuery("select * from Expense ", null);
-
-      /*  int tAmount = 0;
-        tAmount=cursor.getInt(cursor.getColumnIndex(COL_Amount));
-        tAmount = tAmount+tAmount;
-        Toast.makeText(context, "database"+tAmount, Toast.LENGTH_SHORT).show();*/
+        Cursor cursor = sqLiteDatabase.rawQuery("select * from Income ", null);
         return cursor;
+    }
+
+    public Cursor getAllData() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("select * from " + TABLE_NAME, null);
+        return res;
     }
 
     //view total expense
     public Cursor showTotalExpense(long fromDate, long toDate, String type) {
         SQLiteDatabase sqLiteDatabase = getReadableDatabase();
-        Cursor cursor = sqLiteDatabase.rawQuery("select sum(Amount) as Total from Expense where Type="+type+" AND Date between "+fromDate+" and "+toDate, null);
+        Cursor cursor = sqLiteDatabase.rawQuery("select sum(Amount) as Total from Expense where Type=" + type + " AND Date between " + fromDate + " and " + toDate, null);
         return cursor;
     }
 
@@ -100,19 +99,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
     //getDocument
-    public Cursor getDocument(int id){
+    public Cursor getDocument(int id) {
         SQLiteDatabase sqLiteDatabase = getReadableDatabase();
-        Cursor cursor = sqLiteDatabase.rawQuery("select "+COL_Document+" from Expense where "+COL_ID+"="+id, null);
+        Cursor cursor = sqLiteDatabase.rawQuery("select " + COL_Document + " from Expense where " + COL_ID + "=" + id, null);
         return cursor;
     }
 
 
-    public void updateDocument(String id,String documentUrl){
+    public void updateDocument(String id, String documentUrl) {
         SQLiteDatabase sqLiteDatabase = getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(COL_Document,documentUrl);
+        contentValues.put(COL_Document, documentUrl);
         sqLiteDatabase.update(TABLE_NAME, contentValues, "Id=?", new String[]{id});
     }
-
-
 }

@@ -4,8 +4,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     app:cardCornerRadius="5dp"
-    android:background="#F8F6EF"
-    app:cardElevation="5dp"
     app:cardUseCompatPadding="true"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -85,17 +83,6 @@
     </LinearLayout>
 
 
-
- <!--   <Button
-        android:id="@+id/showDocumentBtnID"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:text="Show Document"
-        android:background="@drawable/button_backgrond"
-        android:textColor="#fff"
-        />-->
-
     <Button
         android:id="@+id/showDocumentBtnID"        android:layout_marginBottom="30dp"
         android:layout_marginRight="15dp"
@@ -108,7 +95,5 @@
         android:layout_height="wrap_content"
         android:textColor="@android:color/white"
         android:background="@drawable/button_baground"/>
-
-
 
 </android.support.v7.widget.CardView>

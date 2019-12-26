@@ -1,4 +1,4 @@
-package com.bipul.dailyexpensesnote.income;
+package com.bipul.dailyexpensesnote.database;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -7,10 +7,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.widget.Toast;
 
-public class IncomeDatabaseHelper extends SQLiteOpenHelper {
-
-    private static String DB_NAME = "Incomes.db";
-    private static String TABLE_NAME = "Income";
+public class ExpenseDatabaseHelper extends SQLiteOpenHelper {
+    private static String DB_NAME = "Expenses.db";
+    private static String TABLE_NAME = "Expense";
 
     public static String COL_TYPE = "Type";
     public static String COL_Amount = "Amount";
@@ -25,7 +24,7 @@ public class IncomeDatabaseHelper extends SQLiteOpenHelper {
     private static int VERSION = 8;
     private Context context;
 
-    public IncomeDatabaseHelper(Context context) {
+    public ExpenseDatabaseHelper(Context context) {
         super(context, DB_NAME, null, VERSION);
         this.context = context;
     }
@@ -58,21 +57,13 @@ public class IncomeDatabaseHelper extends SQLiteOpenHelper {
         sqLiteDatabase.close();
 
         int a = 0;
-        amount = amount+a;
-
-        // Toast.makeText(context, ""+amount, Toast.LENGTH_SHORT).show();
         return id;
     }
 
     //long fromDate,long toDate,String type
     public Cursor showAllData() {
         SQLiteDatabase sqLiteDatabase = getReadableDatabase();
-        Cursor cursor = sqLiteDatabase.rawQuery("select * from Income ", null);
-
-      /*  int tAmount = 0;
-        tAmount=cursor.getInt(cursor.getColumnIndex(COL_Amount));
-        tAmount = tAmount+tAmount;
-        Toast.makeText(context, "database"+tAmount, Toast.LENGTH_SHORT).show();*/
+        Cursor cursor = sqLiteDatabase.rawQuery("select * from Expense ", null);
         return cursor;
     }
 
@@ -114,4 +105,6 @@ public class IncomeDatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(COL_Document,documentUrl);
         sqLiteDatabase.update(TABLE_NAME, contentValues, "Id=?", new String[]{id});
     }
+
+
 }

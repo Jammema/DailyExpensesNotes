@@ -1,21 +1,18 @@
-package com.bipul.dailyexpensesnote;
+package com.bipul.dailyexpensesnote.expense;
 
 
-import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -35,6 +32,10 @@ import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.bipul.dailyexpensesnote.database.ExpenseDatabaseHelper;
+import com.bipul.dailyexpensesnote.DateValidate;
+import com.bipul.dailyexpensesnote.R;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.sql.Time;
@@ -45,42 +46,45 @@ import java.util.Date;
 import java.util.regex.Pattern;
 
 import io.blackbox_vision.datetimepickeredittext.view.DatePickerEditText;
-import io.blackbox_vision.datetimepickeredittext.view.DatePickerInputEditText;
 import io.blackbox_vision.datetimepickeredittext.view.TimePickerEditText;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AddExpenseFragment extends Fragment {
+public class UpdateExpenseFragment extends Fragment {
     private Spinner typeSpinner;
     private EditText amountET;
-
     private DatePickerEditText dateET;
     private TimePickerEditText timeET;
 
-    private Button addDocument, addExpense;
+    private Button updateExpenseBtn, updatedocumentBtn;
+    private ImageView datePickBtn, timePickBtn, cancelUpdateBtn;
+    private ImageView filesetIV;
+    private LinearLayout updateCameraGalleryBtnfield, cameraBtn, galleryBtn, cencleBtn;
+    private ExpenseDatabaseHelper helper;
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+    private SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm aa");
+    private String typeOfExpense;
+    private Context context;
 
-    private ImageView datePickBtn, timePickBtn, cancelAddBtn;
-    private ImageView documentImage;
+
     private Bitmap bitmap = null;
     private String documentURL = "";
-    private Context context;
 
     private Calendar calendar;
     private int hour, minute;
 
-    String totalAmount;
+    private int selectposition = 0;
 
 
-    private LinearLayout cameraGalleryBtnField, camera, gallery, cancle;
-    private String typeOfExpense;
-    private DatabaseHelper helper;
+    //get Bundle
+    String rId = "";
+    String rDate = "";
+    String rTime = "";
+    String rAmount = "";
 
-    private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
-    private SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm aa");
-
-    public AddExpenseFragment() {
+    public UpdateExpenseFragment() {
         // Required empty public constructor
     }
 
@@ -89,36 +93,97 @@ public class AddExpenseFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_add_expense, container, false);
-
+        View view = inflater.inflate(R.layout.fragment_update_expense, container, false);
         context = container.getContext();
+
+        Activity activity = new Activity();
+
         calendar = Calendar.getInstance();
         hour = calendar.get(Calendar.HOUR);
         minute = calendar.get(Calendar.MINUTE);
 
+      //  hideSoftKeyboard(activity);
+
+
         init(view);
         process(view);
-        return view;
 
+        return view;
     }
 
+    public static void hideSoftKeyboard(Activity activity) {
+        InputMethodManager inputMethodManager =
+                (InputMethodManager) activity.getSystemService(
+                        Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(
+                activity.getCurrentFocus().getWindowToken(), 0);
+    }
 
+    private void init(View view) {
+        typeSpinner = view.findViewById(R.id.updateActivityTypeSpinnerID);
+        amountET = view.findViewById(R.id.updateExpenseAmountET);
+        dateET = view.findViewById(R.id.updateExpenseDateET);
+        timeET = view.findViewById(R.id.updateExpenseTimeET);
+        updateExpenseBtn = view.findViewById(R.id.updateExpenseBtn);
+        datePickBtn = view.findViewById(R.id.updateActivityDatePickerBtn);
+        timePickBtn = view.findViewById(R.id.updateActiviTimePickerBtn);
+        helper = new ExpenseDatabaseHelper(context);
+        filesetIV = view.findViewById(R.id.updateFileIV);
+        updateCameraGalleryBtnfield = view.findViewById(R.id.updateCameraGalleryBtnfield);
+        cameraBtn = view.findViewById(R.id.updateCameraBtnID);
+        galleryBtn = view.findViewById(R.id.updateGalleryBtnID);
+        cencleBtn = view.findViewById(R.id.updateImageCencleBtnnID);
+        updatedocumentBtn = view.findViewById(R.id.updateDocumentMethod);
+        cancelUpdateBtn = view.findViewById(R.id.updateCancelBtn);
 
+        BottomNavigationView navBar = getActivity().findViewById(R.id.navigation);
+        navBar.setVisibility(View.INVISIBLE);
+    }
 
-    //activity of get content
     private void process(View view) {
+
+        //update value..
+
+
+//get value from bundle argument
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            rId = bundle.getString("id");
+            rDate = bundle.getString("date");
+            rAmount = bundle.getString("amount");
+            rTime = bundle.getString("time");
+            typeOfExpense = bundle.getString("type");
+
+        }
+
+
+        dateET.setText(rDate);
+        timeET.setText(rTime);
+        amountET.setText(rAmount);
+
+
+        //custom set
         //set Type into spinner
-        final String[] typeExpense = {"Food", "Bills", "Home", "Medicine", "Clothing", "Transport", "Health", "Gift","Tex","Baby",
-        "Beauty","Pet","Hamburger","Wine","Office","Travel","Book","Education","Social","Vegetables","Sport","Electronics"};
+        final String[] typeExpense = {"Rent", "Food", "Utility bills", "Medicine", "Cloathing", "Transport", "Health", "Gift"};
         ArrayAdapter arrayAdapter = new ArrayAdapter(context, android.R.layout.simple_list_item_activated_1, typeExpense);
         typeSpinner.setAdapter(arrayAdapter);
 
-        typeOfExpense = typeExpense[0];
+
+        //find position thats selected by user
+        for (int i = 0; i < typeExpense.length; i++) {
+            if (typeOfExpense.equals(typeExpense[i])) {
+                selectposition = i;
+            }
+        }
+
+        typeSpinner.setSelection(selectposition);                  //set spinner position thats request for update
+
 
         typeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 typeOfExpense = typeExpense[position];
+                //Toast.makeText(getApplicationContext(),typeOfExpense+" is selected",Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -167,75 +232,59 @@ public class AddExpenseFragment extends Fragment {
             }
         });
 
+
         //time picker listner
         final TimePickerDialog.OnTimeSetListener timePick = new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hour, int minute) {
                 Time time = new Time(hour, minute, 0);
                 calendar.setTime(time);
-                String usertime = null;
-                try {
-                    usertime = timeFormat.format(calendar.getTime());
-                } catch (Exception e) {
-                    Toast.makeText(context, "Please take the time first : " + e, Toast.LENGTH_SHORT).show();
-                }
-
+                String usertime = timeFormat.format(calendar.getTime());
                 timeET.setText(usertime);
-
             }
         };
 
 
-        //time picker
+        //time set
         timePickBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 TimePickerDialog timePickerDialog = new TimePickerDialog(context, timePick, hour, minute, false);
-                timePickerDialog.updateTime(hour, minute);
                 timePickerDialog.show();
             }
-
-
         });
 
-
-        //add Document  section
-        addDocument.setOnClickListener(new View.OnClickListener() {
+        //call for update on database
+//update data button
+        updateExpenseBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //request for permission on amera or gallery
-                cameraGalleryBtnField.setVisibility(View.VISIBLE);
-
-            }
-        });
-
-
-        //add value into database
-        addExpense.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String getdate = dateET.getText().toString();
+                String uTime = timeET.getText().toString();
+                String amountGet = amountET.getText().toString();
+                String userDate = dateET.getText().toString();
                 DateValidate dv = new DateValidate();
-                dv.matcher = Pattern.compile(dv.DATE_PATTERN).matcher(getdate);           //check valid Date from ValidDate class
-
-                totalAmount = amountET.getText().toString();
-                if (totalAmount.equals("") || dateET.getText().toString().equals("")) {
-                    if (amountET.getText().toString().equals("")) {
-                        amountET.setError("please enter amount");
+                dv.matcher = Pattern.compile(dv.DATE_PATTERN).matcher(userDate);           //check valid Date from ValidDate class
+                if (amountGet.equals("") || userDate.equals("")) {
+                    if (amountGet.equals("")) {
+                        amountET.setError("please enter  amount first");
                         amountET.requestFocus();
-                    } else if (dateET.getText().toString().equals("")) {
-                        dateET.setError("please enter date from date picker");
+                    } else if (userDate.equals("")) {
+                        dateET.setError("please enter date first");
                         dateET.requestFocus();
                     }
+                }
 
-                } else if (!dv.matcher.matches()) {
+                //need check also valid date pattern
+                else if (!dv.matcher.matches()) {
                     dateET.setError("Enter a valid Date format : yyyy/MM/dd");
                     dateET.requestFocus();
-                    Toast.makeText(context, "Wrong Date format according to : yyyy/MM/dd", Toast.LENGTH_LONG).show();
-                } else {
-                    //add type,date,time,amount value into database
-                    int uamount = Integer.valueOf(amountET.getText().toString());
-                    String userDate = dateET.getText().toString();
+                   // Toast.makeText(context, "please select date from calender button", Toast.LENGTH_LONG).show();
+                }
+
+                //if no problem/error exist data can be put into database
+
+                else {
                     Date d = null;
                     try {
                         d = dateFormat.parse(userDate);
@@ -243,42 +292,27 @@ public class AddExpenseFragment extends Fragment {
                         e.printStackTrace();
                     }
                     long mdate = d.getTime();
-                    String userTime = timeET.getText().toString();
-                    if (bitmap != null) {
-                        documentURL = encodeToBase64(bitmap, Bitmap.CompressFormat.JPEG, 100);
-                    }
 
-                    long id = helper.insertData(typeOfExpense, uamount, mdate, userTime, documentURL);
+                    int uAmount = Integer.parseInt(amountGet);
+                    helper.update(rId, typeOfExpense, uAmount, mdate, uTime);
+                    Toast.makeText(context, "Updated Successfully.", Toast.LENGTH_SHORT).show();
 
-                    if (id == -1) {
-                        Toast.makeText(context, "Error : Data  can not Inserted.", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(context, "Expense Data : " + id + " is Inserted.", Toast.LENGTH_SHORT).show();
-
-                       /* Bundle bundle = new Bundle();
-                        bundle.putInt("a",uamount);
-                         expenseFragment.setArguments(bundle);*/
-                        //back to fragment when add expense complete
-                        ExpenseFragment expenseFragment = new ExpenseFragment();
-                        FragmentManager manager = getActivity().getSupportFragmentManager();
-                        FragmentTransaction ft = manager.beginTransaction();
-                        ft.replace(R.id.frameLayoutID, expenseFragment);
-                        ft.addToBackStack(null);
-                        ft.commit();
-
-
-                        //finish(); //need to add fragment for real time data change view
-
-                    }
-
-
+                    //back to fragment when updated expense complete
+                    ExpenseFragment expenseFragment = new ExpenseFragment();
+                    FragmentManager manager = getActivity().getSupportFragmentManager();
+                    FragmentTransaction ft = manager.beginTransaction();
+                    ft.replace(R.id.frameLayoutID, expenseFragment);
+                    ft.addToBackStack(null);
+                    ft.commit();
                 }
+
+
             }
         });
 
+        //cancel update button process
 
-        //impliments cancel add button
-        cancelAddBtn.setOnClickListener(new View.OnClickListener() {
+        cancelUpdateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ExpenseFragment expenseFragment = new ExpenseFragment();
@@ -291,15 +325,18 @@ public class AddExpenseFragment extends Fragment {
         });
 
 
-        //implement camera gallery section
-        cancle.setOnClickListener(new View.OnClickListener() {
+        //camera gallery activity
+
+
+        updatedocumentBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cameraGalleryBtnField.setVisibility(View.GONE);    //when press cencle button
+                updateCameraGalleryBtnfield.setVisibility(View.VISIBLE);    //when press cencle button
             }
         });
 
-        camera.setOnClickListener(new View.OnClickListener() {
+
+        cameraBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -307,7 +344,7 @@ public class AddExpenseFragment extends Fragment {
             }
         });
 
-        gallery.setOnClickListener(new View.OnClickListener() {
+        galleryBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -315,33 +352,17 @@ public class AddExpenseFragment extends Fragment {
                 startActivityForResult(intent, 1);
             }
         });
-    }
 
-    private void init(View view) {
-        typeSpinner = view.findViewById(R.id.addActivityTypeSpinnerID);
-        amountET = view.findViewById(R.id.addActtivityexpenseAmountET);
-        dateET = view.findViewById(R.id.addActivityexpenseDateET);
-        timeET = view.findViewById(R.id.addActivityexpenseTimeET);
-        addDocument = view.findViewById(R.id.addActivityaAddDocumentButton);
-        addExpense = view.findViewById(R.id.addActivityAddExpenseBtn);
-        datePickBtn = view.findViewById(R.id.addActivityDatePickerBtn);
-        timePickBtn = view.findViewById(R.id.addActiviTimePickerBtn);
-        documentImage = view.findViewById(R.id.fileIV);
-        cameraGalleryBtnField = view.findViewById(R.id.cameraGalleryLLfield);
-        camera = view.findViewById(R.id.cameraBtnID);
-        gallery = view.findViewById(R.id.galleryBtnID);
-        cancle = view.findViewById(R.id.cencleButtonID);
-        cancelAddBtn = view.findViewById(R.id.addActivityCancelExpenseBtn);
+        cencleBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                updateCameraGalleryBtnfield.setVisibility(View.GONE);    //when press cencle button
+            }
+        });
 
-        helper = new DatabaseHelper(context);
-
-        BottomNavigationView navBar = getActivity().findViewById(R.id.navigation);
-        navBar.setVisibility(View.INVISIBLE);
 
     }
 
-
-//get Result from camera gallery image
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -352,8 +373,9 @@ public class AddExpenseFragment extends Fragment {
             if (requestCode == 0) {
                 Bundle bundle = data.getExtras();
                 bitmap = (Bitmap) bundle.get("data");
-                documentImage.setImageBitmap(bitmap);
-                cameraGalleryBtnField.setVisibility(View.GONE);
+                filesetIV.setImageBitmap(bitmap);
+                changeDocumentData();                              //change database method called when update image
+                updateCameraGalleryBtnfield.setVisibility(View.GONE);
 
 
             } else if (requestCode == 1) {
@@ -365,8 +387,9 @@ public class AddExpenseFragment extends Fragment {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                documentImage.setImageBitmap(bitmap);
-                cameraGalleryBtnField.setVisibility(View.GONE);
+                filesetIV.setImageBitmap(bitmap);
+                changeDocumentData();
+                updateCameraGalleryBtnfield.setVisibility(View.GONE);
                 //set Image into ImageView
 
 
@@ -375,6 +398,21 @@ public class AddExpenseFragment extends Fragment {
         }
     }
 
+
+    public void changeDocumentData() {
+        String uDocument = null;
+        if (bitmap != null) {
+            uDocument = encodeToBase64(bitmap, Bitmap.CompressFormat.JPEG, 100);
+        }
+
+        if (!uDocument.equals("")) {
+            helper.updateDocument(rId, uDocument);          //update document data into database
+        }
+
+
+    }
+
+
     //encode  image to string url
     public static String encodeToBase64(Bitmap image, Bitmap.CompressFormat compressFormat, int quality)    //example of parameter (mybitmap,Bitmap.CompressFormat.JPEG,100)
     {
@@ -382,6 +420,5 @@ public class AddExpenseFragment extends Fragment {
         image.compress(compressFormat, quality, byteArrayOS);
         return Base64.encodeToString(byteArrayOS.toByteArray(), Base64.DEFAULT);
     }
-
 
 }

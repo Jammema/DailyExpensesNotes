@@ -1,4 +1,4 @@
-package com.bipul.dailyexpensesnote;
+package com.bipul.dailyexpensesnote.expense;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.bipul.dailyexpensesnote.R;
 
 public class DetailExpenseSheet extends BottomSheetDialogFragment {
     private TextView date,amount,type,time;

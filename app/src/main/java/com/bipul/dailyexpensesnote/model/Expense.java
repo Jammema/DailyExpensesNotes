@@ -1,4 +1,4 @@
-package com.bipul.dailyexpensesnote;
+package com.bipul.dailyexpensesnote.model;
 
 import android.graphics.Bitmap;
 

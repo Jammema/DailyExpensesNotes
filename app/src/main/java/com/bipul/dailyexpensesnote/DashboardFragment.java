@@ -17,7 +17,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.bipul.dailyexpensesnote.database.ExpenseDatabaseHelper;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -41,7 +42,7 @@ public class DashboardFragment extends Fragment {
     private Calendar calendar;
     private int year,month,fromDay,toDay,hour,minute;
     private Context context;
-    private DatabaseHelper helper;
+    private ExpenseDatabaseHelper helper;
     private int totAmount=0;
     private int count=0;
     int currentPosition=0;
@@ -72,7 +73,7 @@ public class DashboardFragment extends Fragment {
         fromTV=view.findViewById(R.id.dashBoardFromDateTV);
         toTV=view.findViewById(R.id.dashBoardtoDateTV);
         totalCostTv=view.findViewById(R.id.totalCostTV);
-        helper=new DatabaseHelper(context);
+        helper=new ExpenseDatabaseHelper(context);
 
         fromDateLL = view.findViewById(R.id.fromDataLL);
         toDateLL = view.findViewById(R.id.toDataLL);

@@ -32,7 +32,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="30dp"
-                    android:text="Flittering Income"
+                    android:text="Filter Income"
                     android:textColor="@android:color/white"
                     android:textSize="22sp" />
 
@@ -95,56 +95,7 @@
 
     </android.support.v7.widget.CardView>
 
-    <!--<LinearLayout
-        android:padding="5dp"
-        android:gravity="center_horizontal|center_vertical"
-        android:orientation="horizontal"
-        android:layout_margin="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:id="@+id/viewFromDateTV"
-            android:layout_marginRight="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:text="from Date"
-            android:background="@drawable/textview_back_shape"
-            android:padding="5dp"
-            android:textColor="#fff"
-            />
-        <ImageView
-            android:id="@+id/fromDateCalenderBtn"
-            android:clickable="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_date"
-            android:layout_marginRight="50dp"
-            />
 
-        <TextView
-            android:id="@+id/viewToDateTV"
-            android:layout_marginRight="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:text="to Date"
-            android:background="@drawable/textview_back_shape"
-            android:padding="5dp"
-            android:textColor="#fff"
-            />
-
-        <ImageView
-            android:id="@+id/toDateCalenderBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            app:srcCompat="@drawable/ic_date"
-
-            />
-    </LinearLayout>-->
 
     <LinearLayout
         android:id="@+id/dateLL"
@@ -180,7 +131,6 @@
                 android:textColor="#000"
                 android:textSize="16sp" />
         </LinearLayout>
-
 
         <LinearLayout
             android:layout_width="match_parent"

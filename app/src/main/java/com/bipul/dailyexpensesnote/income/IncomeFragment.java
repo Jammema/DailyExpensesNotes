@@ -21,10 +21,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bipul.dailyexpensesnote.R;
-import com.bipul.dailyexpensesnote.income.AddIncomeFragment;
-import com.bipul.dailyexpensesnote.income.IncomeDatabaseHelper;
+import com.bipul.dailyexpensesnote.database.IncomeDatabaseHelper;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -247,14 +247,12 @@ public class IncomeFragment extends Fragment {
 
     }
 
-    private void pullData() throws ParseException {
+    public  void pullData() throws ParseException {
         //getTotal expense by  type from DataBase and set Total Expense
         Date d1=dateFormat.parse(fromTV.getText().toString());
         Date d2=dateFormat.parse(toTV.getText().toString());
         fdate=d1.getTime();
         tdate=d2.getTime();
-
-
 
         Cursor cursor=inComeHelper.showAllData();
         while (cursor.moveToNext()){
@@ -264,6 +262,7 @@ public class IncomeFragment extends Fragment {
             if(type.equals(typeExpense[0])&&dateFromDB>=fdate&&dateFromDB<=tdate){       //when selected All in types
                 dbAmount=cursor.getInt(cursor.getColumnIndex(inComeHelper.COL_Amount));
                 totAmount=totAmount+dbAmount;
+
             }
             else if(type.equals(dbtype)&&dateFromDB>=fdate&&dateFromDB<=tdate){          //when selected specific in types
                 dbAmount=cursor.getInt(cursor.getColumnIndex(inComeHelper.COL_Amount));
@@ -273,6 +272,8 @@ public class IncomeFragment extends Fragment {
         }
 
         totalIncomeTv.setText(totAmount+"Tk");
+      //  Toast.makeText(context, "Income "+totAmount, Toast.LENGTH_SHORT).show();
         totAmount=0;
+
     }
 }

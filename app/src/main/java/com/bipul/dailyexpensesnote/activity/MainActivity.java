@@ -1,4 +1,4 @@
-package com.bipul.dailyexpensesnote;
+package com.bipul.dailyexpensesnote.activity;
 
 import android.content.DialogInterface;
 import android.support.annotation.NonNull;
@@ -13,9 +13,13 @@ import android.view.MenuItem;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 
+import com.bipul.dailyexpensesnote.DashboardFragment;
+import com.bipul.dailyexpensesnote.R;
+import com.bipul.dailyexpensesnote.expense.ExpenseFragment;
 import com.bipul.dailyexpensesnote.income.IncomeFragment;
 
-public class MainActivity extends AppCompatActivity {
+
+public class MainActivity extends AppCompatActivity{
 
 
     private FrameLayout frameLayout;
@@ -96,5 +100,6 @@ public class MainActivity extends AppCompatActivity {
         AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.show();
     }
+
 
 }

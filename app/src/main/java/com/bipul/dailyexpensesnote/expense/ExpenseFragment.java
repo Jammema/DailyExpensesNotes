@@ -1,4 +1,4 @@
-package com.bipul.dailyexpensesnote;
+package com.bipul.dailyexpensesnote.expense;
 
 
 import android.app.DatePickerDialog;
@@ -6,6 +6,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -19,13 +20,17 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.bipul.dailyexpensesnote.adapter.AdapterExpense;
+import com.bipul.dailyexpensesnote.database.ExpenseDatabaseHelper;
+import com.bipul.dailyexpensesnote.database.IncomeDatabaseHelper;
+import com.bipul.dailyexpensesnote.income.IncomeFragment;
+import com.bipul.dailyexpensesnote.model.Expense;
+import com.bipul.dailyexpensesnote.R;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -43,7 +48,7 @@ public class ExpenseFragment extends Fragment {
     private Spinner eTypeSpinner;
     private TextView fromDateTv, toDateTv;
     private ImageView fromDateBtn, toDateBtn;
-    private TextView totalExpenseTV;
+    private TextView totalExpenseTV, totalIncomeTV, balanceTV;
 
     String[] typeExpense;
     private String typeOfExpense;
@@ -53,8 +58,19 @@ public class ExpenseFragment extends Fragment {
     private RecyclerView expenseRB;
     private List<Expense> expenseList;
     private AdapterExpense adapterExpense;
-    private DatabaseHelper helper;
+    private ExpenseDatabaseHelper helper;
     private Context context;
+
+    int dbAmount;
+    int dbAmountForExpense;
+    int totalIncome = 0;
+    int totalBalance = 0;
+    int totalExpense = 0;
+    int tExpense = 0;
+
+    int income, balance, expense;
+
+    private IncomeDatabaseHelper incomeDatabaseHelper;
 
 
     int tAmount = 0;
@@ -76,20 +92,10 @@ public class ExpenseFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_expense, container, false);
         context = container.getContext();
 
-
-     /*   Bundle bundle = getArguments();
-
-        if (bundle!=null){
-            tAmount = bundle.getInt("a");
-            totalAmount = totalAmount+tAmount;
-            totalExpenseTV.setText(String.valueOf(totalAmount));
-        }*/
-
         init(view);
+
         scrolling();
         addData();
-
-
 
         try {
             initFiltardata(view);
@@ -104,12 +110,18 @@ public class ExpenseFragment extends Fragment {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+
+        getTotalExpense();
+        getTotalIncome();
+
+
         return view;
 
     }
 
+
     private void scrolling() {
-       expenseRB.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        expenseRB.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
@@ -126,8 +138,8 @@ public class ExpenseFragment extends Fragment {
         //get data from spinner and calender
 
         //set Type into spinner
-        typeExpense = new String[]{"All","Food", "Bills", "Home", "Medicine", "Clothing", "Transport", "Health", "Gift","Tex","Baby",
-                "Beauty","Pet","Hamburger","Wine","Office","Travel","Book","Education","Social","Vegetables","Sport","Electronics"};
+        typeExpense = new String[]{"All", "Food", "Bills", "Home", "Medicine", "Clothing", "Transport", "Health", "Gift", "Tex", "Baby",
+                "Beauty", "Pet", "Hamburger", "Wine", "Office", "Travel", "Book", "Education", "Social", "Vegetables", "Sport", "Electronics"};
         ArrayAdapter arrayAdapter = new ArrayAdapter(context, android.R.layout.simple_list_item_activated_1, typeExpense);
         eTypeSpinner.setAdapter(arrayAdapter);
 
@@ -152,9 +164,6 @@ public class ExpenseFragment extends Fragment {
 
             }
         });
-
-        //customize date range within calander
-
 
         //date picker part
         calendar = Calendar.getInstance();
@@ -248,15 +257,13 @@ public class ExpenseFragment extends Fragment {
         });
     }
 
+
     private void getdata() throws ParseException {
         //pull data from database and add to ArrayList using cursor
         Date d1 = dateFormat.parse(fromDateTv.getText().toString());
         Date d2 = dateFormat.parse(toDateTv.getText().toString());
         long fromDate = d1.getTime();
         long toDate = d2.getTime();
-
-        int totalAmount = 0;
-
 
         expenseList.clear();                    //clear previous data
         adapterExpense.notifyDataSetChanged();
@@ -278,13 +285,10 @@ public class ExpenseFragment extends Fragment {
 
             if (dateFromDB >= fromDate && dateFromDB <= toDate) {
                 amount = cursor.getInt(cursor.getColumnIndex(helper.COL_Amount));
-                totalAmount = totalAmount + amount;
+                totalExpense = totalExpense + amount;
 
             }
             count++;
-
-            // Toast.makeText(context,"Check date : "+dateFromDB,Toast.LENGTH_LONG).show();
-
 
             if (typeOfExpense.equals(typeExpense[0]) && dateFromDB >= fromDate && dateFromDB <= toDate) {   //when selected All in types
                 expenseList.add(new Expense(amount, type, dateTo, timeTo, id, null));  //add image documents next
@@ -294,15 +298,9 @@ public class ExpenseFragment extends Fragment {
             } else if (typeOfExpense.equals(type) && dateFromDB >= fromDate && dateFromDB <= toDate) {            //when selected specific in types
                 expenseList.add(new Expense(amount, type, dateTo, timeTo, id, null));  //add image documents next
                 adapterExpense.notifyDataSetChanged();
-            } else {
-                // expenseList.clear();               //when not found data according to filtering
-                //adapterExpense.notifyDataSetChanged();
             }
 
         }
-
-       // Toast.makeText(context, "Total " + totalAmount, Toast.LENGTH_SHORT).show();
-        totalExpenseTV.setText(String.valueOf(totalAmount));
 
     }
 
@@ -312,7 +310,7 @@ public class ExpenseFragment extends Fragment {
     }
 
     private void init(View view) {
-        helper = new DatabaseHelper(context);
+        helper = new ExpenseDatabaseHelper(context);
         addButton = view.findViewById(R.id.floatAB);
         expenseRB = view.findViewById(R.id.expenseRV);
         expenseList = new ArrayList<>();
@@ -323,8 +321,48 @@ public class ExpenseFragment extends Fragment {
         fromDateTv = view.findViewById(R.id.viewFromDateTV);
         toDateTv = view.findViewById(R.id.viewToDateTV);
         totalExpenseTV = view.findViewById(R.id.totalExpenseET);
+        totalIncomeTV = view.findViewById(R.id.totalIncomeTV);
+        balanceTV = view.findViewById(R.id.balanceTV);
 
         BottomNavigationView navBar = getActivity().findViewById(R.id.navigation);
         navBar.setVisibility(View.VISIBLE);
     }
+
+
+    public void getTotalIncome() {
+        incomeDatabaseHelper = new IncomeDatabaseHelper(getContext());
+        Cursor cursor = incomeDatabaseHelper.getAllData();
+
+        while (cursor.moveToNext()) {
+            dbAmount = cursor.getInt(cursor.getColumnIndex(incomeDatabaseHelper.COL_Amount));
+            totalIncome = dbAmount + totalIncome;
+            count++;
+        }
+
+        totalBalance = getBalance(tExpense, totalIncome);
+        balanceTV.setText(String.valueOf(totalBalance));
+        totalBalance = 0;
+        totalIncomeTV.setText(String.valueOf(totalIncome));
+        totalIncome = 0;
+    }
+
+    public void getTotalExpense() {
+        helper = new ExpenseDatabaseHelper(getContext());
+        Cursor cursor = helper.showAllData();
+
+        while (cursor.moveToNext()) {
+            dbAmountForExpense = cursor.getInt(cursor.getColumnIndex(helper.COL_Amount));
+            tExpense = dbAmountForExpense + tExpense;
+
+            count++;
+        }
+        totalExpenseTV.setText(String.valueOf(totalExpense));
+        totalExpense = 0;
+    }
+
+    public int getBalance(int totalExpense, int totalIncome) {
+        int balance = totalIncome - totalExpense;
+        return balance;
+    }
+
 }
