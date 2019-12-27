@@ -13,7 +13,7 @@ import android.view.MenuItem;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 
-import com.bipul.dailyexpensesnote.DashboardFragment;
+import com.bipul.dailyexpensesnote.dashboard.DashboardFragment;
 import com.bipul.dailyexpensesnote.R;
 import com.bipul.dailyexpensesnote.expense.ExpenseFragment;
 import com.bipul.dailyexpensesnote.income.IncomeFragment;

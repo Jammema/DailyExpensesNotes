@@ -31,7 +31,7 @@ import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.bipul.dailyexpensesnote.DateValidate;
+import com.bipul.dailyexpensesnote.model.DateValidate;
 import com.bipul.dailyexpensesnote.database.IncomeDatabaseHelper;
 import com.bipul.dailyexpensesnote.expense.ExpenseFragment;
 import com.bipul.dailyexpensesnote.R;

@@ -32,7 +32,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.bipul.dailyexpensesnote.database.ExpenseDatabaseHelper;
-import com.bipul.dailyexpensesnote.DateValidate;
+import com.bipul.dailyexpensesnote.model.DateValidate;
 import com.bipul.dailyexpensesnote.R;
 
 import java.io.ByteArrayOutputStream;

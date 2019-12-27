@@ -1,4 +1,4 @@
-package com.bipul.dailyexpensesnote;
+package com.bipul.dailyexpensesnote.dashboard;
 
 
 import android.app.DatePickerDialog;
@@ -18,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.bipul.dailyexpensesnote.R;
 import com.bipul.dailyexpensesnote.database.ExpenseDatabaseHelper;
 
 import java.text.ParseException;
